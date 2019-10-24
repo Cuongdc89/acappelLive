@@ -42,10 +42,10 @@ class RegisterController extends Controller
     }
 
     /**
-     * @bodyParam email email required The title of the post.
-     * @bodyParam password string required The content of the post.
-     * @bodyParam password_confirmation string required The content of the post.
-     * @bodyParam name string required The content of the post.
+     * @bodyParam email email required.
+     * @bodyParam password string required.
+     * @bodyParam password_confirmation string required.
+     * @bodyParam name string required .
      * @response {
      *  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjVlOGMyOGM1ZTZ",
      *  "user": {
