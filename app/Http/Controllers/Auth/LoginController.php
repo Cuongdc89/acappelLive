@@ -31,8 +31,8 @@ class LoginController extends Controller
     }
 
     /**
-     * @bodyParam email email required The title of the post.
-     * @bodyParam password string required The content of the post.
+     * @bodyParam email email required The email which user has been register.
+     * @bodyParam password string required The password required min 8 char.
      * @response {
      *  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjVlOGMyOGM1ZTZ",
      *  "user": {

@@ -16,7 +16,7 @@ toc_footers:
 # Info
 
 Welcome to the generated API reference.
-[Get Postman Collection](http://localhost/docs/collection.json)
+[Get Postman Collection](local.adu-sys-core/docs/collection.json)
 
 <!-- END_INFO -->
 
@@ -28,12 +28,12 @@ Welcome to the generated API reference.
 > Example request:
 
 ```bash
-curl -X GET -G "http://localhost/api/logout" \
+curl -X GET -G "local.adu-sys-core/api/logout" \
     -H "Authorization: Bearer {token}"
 ```
 
 ```javascript
-const url = new URL("http://localhost/api/logout");
+const url = new URL("local.adu-sys-core/api/logout");
 
 let headers = {
     "Authorization": "Bearer {token}",
@@ -71,19 +71,133 @@ fetch(url, {
 
 <!-- END_00e7e21641f05de650dbe13f242c6f2c -->
 
+<!-- START_fc1e4f6a697e3c48257de845299b71d5 -->
+## api/users
+> Example request:
+
+```bash
+curl -X GET -G "local.adu-sys-core/api/users" \
+    -H "Authorization: Bearer {token}"
+```
+
+```javascript
+const url = new URL("local.adu-sys-core/api/users");
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "status": "true",
+    "user": {
+        "email": "cuongdc@gmail.com",
+        "id": "1",
+        "profile_picture_url": "https:\/\/lh3.googleusercontent.com\/--jvQFiFavr0\/AAAAAAAAAAI\/AAAAAAAAAAA\/ACHi3rea71C01D1HxUXaqKQ7Djj9e8Li4Q.CMID\/s32-c\/photo.jpg"
+    }
+}
+```
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/users`
+
+
+<!-- END_fc1e4f6a697e3c48257de845299b71d5 -->
+
+<!-- START_c527dcd7f3e7400067a0c62602aeaf10 -->
+## api/users
+> Example request:
+
+```bash
+curl -X PUT "local.adu-sys-core/api/users" \
+    -H "Authorization: Bearer {token}" \
+    -H "Content-Type: application/json" \
+    -d '{"name":"harum","profile_picture":"blanditiis"}'
+
+```
+
+```javascript
+const url = new URL("local.adu-sys-core/api/users");
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "name": "harum",
+    "profile_picture": "blanditiis"
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "status": true,
+    "user": {
+        "email": "cuongdc@gmail.com",
+        "id": "1",
+        "profile_picture_url": "https:\/\/lh3.googleusercontent.com\/--jvQFiFavr0\/AAAAAAAAAAI\/AAAAAAAAAAA\/ACHi3rea71C01D1HxUXaqKQ7Djj9e8Li4Q.CMID\/s32-c\/photo.jpg"
+    }
+}
+```
+
+### HTTP Request
+`PUT api/users`
+
+#### Body Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    name | string |  optional  | option update user name of auth user.
+    profile_picture | file |  optional  | option update profile of user
+
+<!-- END_c527dcd7f3e7400067a0c62602aeaf10 -->
+
 <!-- START_c3fa189a6c95ca36ad6ac4791a873d23 -->
 ## api/login
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/login" \
+curl -X POST "local.adu-sys-core/api/login" \
     -H "Content-Type: application/json" \
-    -d '{"email":"eum","password":"autem"}'
+    -d '{"email":"nostrum","password":"et"}'
 
 ```
 
 ```javascript
-const url = new URL("http://localhost/api/login");
+const url = new URL("local.adu-sys-core/api/login");
 
 let headers = {
     "Content-Type": "application/json",
@@ -91,8 +205,8 @@ let headers = {
 }
 
 let body = {
-    "email": "eum",
-    "password": "autem"
+    "email": "nostrum",
+    "password": "et"
 }
 
 fetch(url, {
@@ -139,8 +253,8 @@ fetch(url, {
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    email | email |  required  | The title of the post.
-    password | string |  required  | The content of the post.
+    email | email |  required  | The email which user has been register.
+    password | string |  required  | The password required min 8 char.
 
 <!-- END_c3fa189a6c95ca36ad6ac4791a873d23 -->
 
@@ -149,14 +263,14 @@ Parameter | Type | Status | Description
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/register" \
+curl -X POST "local.adu-sys-core/api/register" \
     -H "Content-Type: application/json" \
-    -d '{"email":"ipsum","password":"mollitia","password_confirmation":"consequuntur","name":"aliquam"}'
+    -d '{"email":"cupiditate","password":"repellendus","password_confirmation":"et","name":"quia"}'
 
 ```
 
 ```javascript
-const url = new URL("http://localhost/api/register");
+const url = new URL("local.adu-sys-core/api/register");
 
 let headers = {
     "Content-Type": "application/json",
@@ -164,10 +278,10 @@ let headers = {
 }
 
 let body = {
-    "email": "ipsum",
-    "password": "mollitia",
-    "password_confirmation": "consequuntur",
-    "name": "aliquam"
+    "email": "cupiditate",
+    "password": "repellendus",
+    "password_confirmation": "et",
+    "name": "quia"
 }
 
 fetch(url, {
@@ -215,10 +329,10 @@ fetch(url, {
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    email | email |  required  | The title of the post.
-    password | string |  required  | The content of the post.
-    password_confirmation | string |  required  | The content of the post.
-    name | string |  required  | The content of the post.
+    email | email |  required  | This param must validate email format.
+    password | string |  required  | The password must has min 8 chars.
+    password_confirmation | string |  required  | The password must has min 8 chars.
+    name | string |  required  | This param will be use to display on user info and comment of user.
 
 <!-- END_d7b7952e7fdddc07c978c9bdaf757acf -->
 

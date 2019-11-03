@@ -46,7 +46,7 @@
           <!-- START_INFO -->
 <h1>Info</h1>
 <p>Welcome to the generated API reference.
-<a href="http://localhost/docs/collection.json">Get Postman Collection</a></p>
+<a href="local.adu-sys-core/docs/collection.json">Get Postman Collection</a></p>
 <!-- END_INFO -->
 <h1>general</h1>
 <!-- START_00e7e21641f05de650dbe13f242c6f2c -->
@@ -54,9 +54,9 @@
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X GET -G "http://localhost/api/logout" \
+<pre><code class="language-bash">curl -X GET -G "local.adu-sys-core/api/logout" \
     -H "Authorization: Bearer {token}"</code></pre>
-<pre><code class="language-javascript">const url = new URL("http://localhost/api/logout");
+<pre><code class="language-javascript">const url = new URL("local.adu-sys-core/api/logout");
 
 let headers = {
     "Authorization": "Bearer {token}",
@@ -85,16 +85,126 @@ fetch(url, {
 <h3>HTTP Request</h3>
 <p><code>GET api/logout</code></p>
 <!-- END_00e7e21641f05de650dbe13f242c6f2c -->
+<!-- START_fc1e4f6a697e3c48257de845299b71d5 -->
+<h2>api/users</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "local.adu-sys-core/api/users" \
+    -H "Authorization: Bearer {token}"</code></pre>
+<pre><code class="language-javascript">const url = new URL("local.adu-sys-core/api/users");
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": "true",
+    "user": {
+        "email": "cuongdc@gmail.com",
+        "id": "1",
+        "profile_picture_url": "https:\/\/lh3.googleusercontent.com\/--jvQFiFavr0\/AAAAAAAAAAI\/AAAAAAAAAAA\/ACHi3rea71C01D1HxUXaqKQ7Djj9e8Li4Q.CMID\/s32-c\/photo.jpg"
+    }
+}</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/users</code></p>
+<!-- END_fc1e4f6a697e3c48257de845299b71d5 -->
+<!-- START_c527dcd7f3e7400067a0c62602aeaf10 -->
+<h2>api/users</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PUT "local.adu-sys-core/api/users" \
+    -H "Authorization: Bearer {token}" \
+    -H "Content-Type: application/json" \
+    -d '{"name":"harum","profile_picture":"blanditiis"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("local.adu-sys-core/api/users");
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "name": "harum",
+    "profile_picture": "blanditiis"
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": true,
+    "user": {
+        "email": "cuongdc@gmail.com",
+        "id": "1",
+        "profile_picture_url": "https:\/\/lh3.googleusercontent.com\/--jvQFiFavr0\/AAAAAAAAAAI\/AAAAAAAAAAA\/ACHi3rea71C01D1HxUXaqKQ7Djj9e8Li4Q.CMID\/s32-c\/photo.jpg"
+    }
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>PUT api/users</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>optional</td>
+<td>option update user name of auth user.</td>
+</tr>
+<tr>
+<td>profile_picture</td>
+<td>file</td>
+<td>optional</td>
+<td>option update profile of user</td>
+</tr>
+</tbody>
+</table>
+<!-- END_c527dcd7f3e7400067a0c62602aeaf10 -->
 <!-- START_c3fa189a6c95ca36ad6ac4791a873d23 -->
 <h2>api/login</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X POST "http://localhost/api/login" \
+<pre><code class="language-bash">curl -X POST "local.adu-sys-core/api/login" \
     -H "Content-Type: application/json" \
-    -d '{"email":"eum","password":"autem"}'
+    -d '{"email":"nostrum","password":"et"}'
 </code></pre>
-<pre><code class="language-javascript">const url = new URL("http://localhost/api/login");
+<pre><code class="language-javascript">const url = new URL("local.adu-sys-core/api/login");
 
 let headers = {
     "Content-Type": "application/json",
@@ -102,8 +212,8 @@ let headers = {
 }
 
 let body = {
-    "email": "eum",
-    "password": "autem"
+    "email": "nostrum",
+    "password": "et"
 }
 
 fetch(url, {
@@ -154,13 +264,13 @@ fetch(url, {
 <td>email</td>
 <td>email</td>
 <td>required</td>
-<td>The title of the post.</td>
+<td>The email which user has been register.</td>
 </tr>
 <tr>
 <td>password</td>
 <td>string</td>
 <td>required</td>
-<td>The content of the post.</td>
+<td>The password required min 8 char.</td>
 </tr>
 </tbody>
 </table>
@@ -170,11 +280,11 @@ fetch(url, {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X POST "http://localhost/api/register" \
+<pre><code class="language-bash">curl -X POST "local.adu-sys-core/api/register" \
     -H "Content-Type: application/json" \
-    -d '{"email":"ipsum","password":"mollitia","password_confirmation":"consequuntur","name":"aliquam"}'
+    -d '{"email":"cupiditate","password":"repellendus","password_confirmation":"et","name":"quia"}'
 </code></pre>
-<pre><code class="language-javascript">const url = new URL("http://localhost/api/register");
+<pre><code class="language-javascript">const url = new URL("local.adu-sys-core/api/register");
 
 let headers = {
     "Content-Type": "application/json",
@@ -182,10 +292,10 @@ let headers = {
 }
 
 let body = {
-    "email": "ipsum",
-    "password": "mollitia",
-    "password_confirmation": "consequuntur",
-    "name": "aliquam"
+    "email": "cupiditate",
+    "password": "repellendus",
+    "password_confirmation": "et",
+    "name": "quia"
 }
 
 fetch(url, {
@@ -237,25 +347,25 @@ fetch(url, {
 <td>email</td>
 <td>email</td>
 <td>required</td>
-<td>The title of the post.</td>
+<td>This param must validate email format.</td>
 </tr>
 <tr>
 <td>password</td>
 <td>string</td>
 <td>required</td>
-<td>The content of the post.</td>
+<td>The password must has min 8 chars.</td>
 </tr>
 <tr>
 <td>password_confirmation</td>
 <td>string</td>
 <td>required</td>
-<td>The content of the post.</td>
+<td>The password must has min 8 chars.</td>
 </tr>
 <tr>
 <td>name</td>
 <td>string</td>
 <td>required</td>
-<td>The content of the post.</td>
+<td>This param will be use to display on user info and comment of user.</td>
 </tr>
 </tbody>
 </table>

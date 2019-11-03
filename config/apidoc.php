@@ -224,6 +224,7 @@ return [
              */
             'exclude' => [
                 'api/logout',
+                'api/users'
             ],
 
             /*
