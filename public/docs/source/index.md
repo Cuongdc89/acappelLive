@@ -16,26 +16,74 @@ toc_footers:
 # Info
 
 Welcome to the generated API reference.
-[Get Postman Collection](http://127.0.0.1:8000/docs/collection.json)
+[Get Postman Collection](http://34.87.16.238/docs/collection.json)
 
 <!-- END_INFO -->
 
 #Autentication
 
 
+<!-- START_00e7e21641f05de650dbe13f242c6f2c -->
+## api/logout
+> Example request:
+
+```bash
+curl -X GET -G "http://34.87.16.238/api/logout" \
+    -H "Authorization: Bearer {token}"
+```
+
+```javascript
+const url = new URL("http://34.87.16.238/api/logout");
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "status": "true"
+}
+```
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/logout`
+
+
+<!-- END_00e7e21641f05de650dbe13f242c6f2c -->
+
 <!-- START_c3fa189a6c95ca36ad6ac4791a873d23 -->
 ## api/login
 > Example request:
 
 ```bash
-curl -X POST "http://127.0.0.1:8000/api/login" \
+curl -X POST "http://34.87.16.238/api/login" \
     -H "Content-Type: application/json" \
     -d '{"email":"cuongdc@gmail.com","password":"12345678@a"}'
 
 ```
 
 ```javascript
-const url = new URL("http://127.0.0.1:8000/api/login");
+const url = new URL("http://34.87.16.238/api/login");
 
 let headers = {
     "Content-Type": "application/json",
@@ -101,14 +149,14 @@ Parameter | Type | Status | Description
 > Example request:
 
 ```bash
-curl -X POST "http://127.0.0.1:8000/api/register" \
+curl -X POST "http://34.87.16.238/api/register" \
     -H "Content-Type: application/json" \
-    -d '{"email":"minus","password":"repellendus","password_confirmation":"quaerat","name":"quia"}'
+    -d '{"email":"architecto","password":"eaque","password_confirmation":"est","name":"blanditiis"}'
 
 ```
 
 ```javascript
-const url = new URL("http://127.0.0.1:8000/api/register");
+const url = new URL("http://34.87.16.238/api/register");
 
 let headers = {
     "Content-Type": "application/json",
@@ -116,10 +164,10 @@ let headers = {
 }
 
 let body = {
-    "email": "minus",
-    "password": "repellendus",
-    "password_confirmation": "quaerat",
-    "name": "quia"
+    "email": "architecto",
+    "password": "eaque",
+    "password_confirmation": "est",
+    "name": "blanditiis"
 }
 
 fetch(url, {
@@ -174,52 +222,6 @@ Parameter | Type | Status | Description
 
 <!-- END_d7b7952e7fdddc07c978c9bdaf757acf -->
 
-<!-- START_00e7e21641f05de650dbe13f242c6f2c -->
-## api/logout
-> Example request:
-
-```bash
-curl -X GET -G "http://127.0.0.1:8000/api/logout" 
-```
-
-```javascript
-const url = new URL("http://127.0.0.1:8000/api/logout");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-> Example response (200):
-
-```json
-{
-    "status": "true"
-}
-```
-> Example response (401):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-
-### HTTP Request
-`GET api/logout`
-
-
-<!-- END_00e7e21641f05de650dbe13f242c6f2c -->
-
 #Comments
 
 
@@ -230,14 +232,78 @@ fetch(url, {
 > Example request:
 
 ```bash
-curl -X POST "http://127.0.0.1:8000/api/video/1/comment" \
+curl -X POST "http://34.87.16.238/api/video/1/comment" \
+    -H "Authorization: Bearer {token}" \
     -H "Content-Type: application/json" \
     -d '{"comment_text":"Comment content for video."}'
 
 ```
 
 ```javascript
-const url = new URL("http://127.0.0.1:8000/api/video/1/comment");
+const url = new URL("http://34.87.16.238/api/video/1/comment");
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "comment_text": "Comment content for video."
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "status": true,
+    "comment": {
+        "user_id": 2,
+        "video_id": 1,
+        "comment_text": "this is a comment too",
+        "updated_at": "2019-11-04 08:45:17",
+        "created_at": "2019-11-04 08:45:17",
+        "id": 2
+    }
+}
+```
+
+### HTTP Request
+`POST api/video/{id}/comment`
+
+#### Body Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    comment_text | string |  optional  | require comment content for video.
+
+<!-- END_12843026c1a22533a2513cb16ccd1cc4 -->
+
+<!-- START_12843026c1a22533a2513cb16ccd1cc4 -->
+## API for create a comment for a video
+
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
+> Example request:
+
+```bash
+curl -X POST "http://34.87.16.238/api/video/1/comment" \
+    -H "Content-Type: application/json" \
+    -d '{"comment_text":"Comment content for video."}'
+
+```
+
+```javascript
+const url = new URL("http://34.87.16.238/api/video/1/comment");
 
 let headers = {
     "Content-Type": "application/json",
@@ -291,11 +357,11 @@ Parameter | Type | Status | Description
 > Example request:
 
 ```bash
-curl -X GET -G "http://127.0.0.1:8000/api/video/1/comments" 
+curl -X GET -G "http://34.87.16.238/api/video/1/comments" 
 ```
 
 ```javascript
-const url = new URL("http://127.0.0.1:8000/api/video/1/comments");
+const url = new URL("http://34.87.16.238/api/video/1/comments");
 
 let headers = {
     "Accept": "application/json",
@@ -334,14 +400,14 @@ fetch(url, {
 > Example request:
 
 ```bash
-curl -X POST "http://127.0.0.1:8000/api/video/1/reation" \
+curl -X POST "http://34.87.16.238/api/video/1/reation" \
     -H "Content-Type: application/json" \
     -d '{"type":1}'
 
 ```
 
 ```javascript
-const url = new URL("http://127.0.0.1:8000/api/video/1/reation");
+const url = new URL("http://34.87.16.238/api/video/1/reation");
 
 let headers = {
     "Content-Type": "application/json",
@@ -385,11 +451,11 @@ Parameter | Type | Status | Description
 > Example request:
 
 ```bash
-curl -X GET -G "http://127.0.0.1:8000/api/video/1/reations" 
+curl -X GET -G "http://34.87.16.238/api/video/1/reations" 
 ```
 
 ```javascript
-const url = new URL("http://127.0.0.1:8000/api/video/1/reations");
+const url = new URL("http://34.87.16.238/api/video/1/reations");
 
 let headers = {
     "Accept": "application/json",
@@ -430,11 +496,11 @@ null
 > Example request:
 
 ```bash
-curl -X DELETE "http://127.0.0.1:8000/api/reation/1" 
+curl -X DELETE "http://34.87.16.238/api/reation/1" 
 ```
 
 ```javascript
-const url = new URL("http://127.0.0.1:8000/api/reation/1");
+const url = new URL("http://34.87.16.238/api/reation/1");
 
 let headers = {
     "Accept": "application/json",
@@ -474,13 +540,15 @@ fetch(url, {
 > Example request:
 
 ```bash
-curl -X GET -G "http://127.0.0.1:8000/api/users" 
+curl -X GET -G "http://34.87.16.238/api/users" \
+    -H "Authorization: Bearer {token}"
 ```
 
 ```javascript
-const url = new URL("http://127.0.0.1:8000/api/users");
+const url = new URL("http://34.87.16.238/api/users");
 
 let headers = {
+    "Authorization": "Bearer {token}",
     "Accept": "application/json",
     "Content-Type": "application/json",
 }
@@ -528,16 +596,18 @@ fetch(url, {
 > Example request:
 
 ```bash
-curl -X POST "http://127.0.0.1:8000/api/users" \
+curl -X POST "http://34.87.16.238/api/users" \
+    -H "Authorization: Bearer {token}" \
     -H "Content-Type: application/json" \
     -d '{"name":"Cuongdc123","image":"iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAhFBMVEX\/\/\/8AAAD8\/PwEBAT5+fnx8fH29va0tLTp6elGRkb09PSSkpLk5OSdnZ3GxsbY2Nirq6suLi5tbW0pKSnS0tJVVVV9fX3Jycm3t7fe3t6Hh4dfX19zc3OXl5e9vb2oqKhNTU1DQ0OJiYkUFBQ1NTU0NDRcXFwhISFoaGgPDw8iIiI8PDxlT7X8AAAQwUlEQVR4nO1diZqiOBAO4RAV8Nb2vro9xvd\/v80FEgiQhCC6nzW7PT3dgPmpSqVSV4D1fyfQ9gAapy\/Cz6cvws+nL8LPpy\/Cz6cvws+nL8LPpy\/CGmTb9K\/4m9JrmxvGG\/DQzn1jlJrkIfePSXd228wpbW6zw+hceK1Zag4hGfS5O9v0h9Ol63mOAyEElCB0HM8NBj\/bzeUwaWwIhJqU0sswGrgxKI7SP\/SWUWd+rn6aLhlCaHN\/WZN1PxJCK6ZBuHlknmaGjPKQjOz+WE19Rw0eJX8Qdq9WrIQlNLAUmZbS236gAw7guUlQduZ3syMyifB6GdJp9\/wij+\/5tRfdsLyaElVzCK\/bARkixH+gIkByF4DxfX6na2xcdREyi+U8n6ohqiT\/9EueT6hNhIRG2yCeRwbJ7RwoxHqDq4XQJpOl2+kB1WlXSfRx0bg+xto8PER4ZUAMdExihITQ38H6XFPp1ET4S\/EBpiqMImSMnK7rDVEXIXmth51x6cxjRebOxiIGgK3FzBoIJ6HbOD62+OzQAnnXlFYdhHTmrxA+50UQAdxfJffSJhASYVlP6QL9CiklisxdaWpVTSkNmd1ifBHMI4Txp+xGWnKqhtAm893auE3jEoPt00E0iZBAPO+19kYmaHFUh6jIQ\/T\/zG\/AQpMiLK\/zpnloWdvXTL8CgBBEV8UBqyKM6A6pPYQgODaGEEnHzW9+eaiAif7fKq0b0gjxI+ctyWcW5P6uMBnlEVrWELQ1BdPw8OdPR9IAFaR0siCf0DpC8sWdmUf4N2ifgYDCw396F5MIsR1zgIZ3gLVpYxShtXbbVqI5cvpyi7+clK7fQ0AzFEqNXQrhGDJHxTsReuV7Uwhv8Rx8K4h4SEMDCNFCv24bSwkNq+diBUIE8Oa1DaOM9pUQqxBas7cSzTz1K1hYKaUz771mX5YgmNdD+Oe3DaGcoAOcCuumBCGW79b28yp01ESIt0s\/72aqCQntiUu2i6U83IM3WwMLaKDJQ+vU+l5JjiD40UJo\/fboHHxnkPHYTooISYDg35ur0Sc5EHhrrBiFk1HMQzxxd2\/NPJ4c4FskOiUvpba1YVHKTyCs8HdFOUZiKUXGWu8T1glGhBdFU7FI0wywdH8SD0HvITcP2UXDz2EgIwimSWxMgofHDxJRRpBsMwRcFCBEV5lOcHoBoanoHkWBcCEPt87HqNEUUTmV4SH6IdmWfBYRvTi28hhzCNEFi7ZHq03+X56JAoTjtsdZg4bVCNEFQdvD1CcI83mp+Xl4+riF4kkONt6qEN79D1SjKTpUIgw\/mIVYnS6z2WEcQvTzR+uR+jqExW8TZ\/YKERLXzOcCJBQU85D81HQq7IsJkmWfs9wyCMOP2TEJieRKLso0zeNNfTNJHpbU6x9bBTxEP+83PFJdouhk61QWhQgtq52sympC2IKOJ+m+hXBWoEtta974UDUJgp+ztZJUgRB0Cufh4m3V6OJsWRdPVgt61wKE3WZHqUdEPe6Ipt9L39QvQNhpcKDaRNLYqI9pI6dLqemWbIVTCCfvuVSQpBJSwDaXnkQwtWCkEM7BW1ps7iZOJw0l74BE19h5hFGjA9WlH7KnJX7QqRwDiHGQm4cYcNNjlaVUwWzQ+WXjs3E4E+AKOTkX2SY3D8kD3oIgW9gdt3P7SziBhuupFODuMjy0rTfysBEA7n6WjIzSkPxyEcntDfwHz0MkA933sdgQguEog886eF4w6HetP2nzm92d8PBtfIho\/M4q16XB+ptfiKXyK4kwEdNE07yHkJJIYFCWpz6V3MG6PA+t99hWUC3ijwqS8ZhClXzWjechziFtn0h5czApCFfjJXEkn04fZhDK2guNEmahW9gWA5fNDeTNrkUG4btsnLxZWUFzCKTzJyCYcAgnbTug0Od7g+jnVNpw6KLyQHDhEB4aGrj8gKB\/OdPZVkj3pZKghRzCfvtCStPvylKat2quzgGHUHaVaYyQkvmtyNjuumrOan+SRth6zBBWlxYoJbtiy+iWQjhrfb3HIypOZ8bMnSg\/c5VCOG99d48nybSUhUPlZ+5TCN\/B151xc2aZeOwpP3GZQvgWmZZucW8oWzngQMIAKYQ+aF9MK+q0lqqPQ3gYwtZdNA41xIISeDZlgip1sQUYI2yTg7QF2qV8OVTkIaFVIqVH44NWIbofCiuaz6irUqpMbYKw3ZgTmTLl9aBo37TVePIu4WEI2hRTzMEfNtuK6LjUaSW2SBD+mB+2HLEmhLgPRDn9atnNg2sspS368zFAr6rAziKbe3VaTmIetudnw7I3PUqUnesoGuwWpgjP7SU9Q+BjlV7VqeTRj3QUhXdgCP\/pNlU1QMNfFhwspWNPax7CGUP49+rdIWuKCPxQtgnLUE\/ZXyxqtf2+LvibavAGl3PaoVQG4cTV8kGsGcJjC\/vfaUiak8p20Xvoqfsbk9IXh5285WL+p9YOOXD0\/Ejj1yOEy+Gcduu0VXo9TTULrjdmEIo+Ojced7nYhet\/SpxjZNNSQZ2hNYiQ\/Bx6vZ4fTPenze3S1QJHESKjbfk+PHT85XTX2Yfb0\/w2+6savBQ+3LlCs1LQDEIadg+WUThfH0eT6zk\/u+qcYIFvOepufQzxEAy282PF4Qb6vY7xnSPd1GyK0NbNDKafOqjeGNQjpGiuWuMDz\/XwV8tqI4aXvzHc51+AEPNQk9YM4UjHywMcZJj071ZZQNMMwH9DbavywhBeNfYWjgMjbLmzsyiaRLjSxQeceG+htz+E\/dgwaZSHdUrNegc0Np09PpqBSET9yv5FJgh33NRGyPb4pEGEIjnQ3wrKNZsh\/USY5STmoaIThEUzXwNwt99p1yRPsaInCFXjOixe+wqIZ1DDlRtZMcKNKsBcgVgzhKsF61Sa\/eBHABpAVnuII9PNzwjAi66z+hkqYDE2JYgD+QawNWnu1GgLwFq5AVZ1qECR9Sotc\/brhVNIFiflYaC0\/Rq\/YAoS6tQMGFkUIbZKlKpldqMXIVzXUDL4VochxHQCcm8LTYvo9xXgyBusG\/CbphBKVhShiwavkU\/b1vZzPylMIZT3Ca9fo2Rs0p6jJhPTOVHSeQCdVykZA3VmvVkaoaTTPPj3qoUiTmKqwcbgnkZYvUMhTouCdlpmiQTbVjVlFCaJ3gyhRPkozQh5BQ8RwINbM+EVJoWkDOFVfCJq+hbWYbLxeUh8BksDrR26HMLq3D0HTM+vUTOk4rcuQAjcfzzC6qYty39q8aIaAJExU\/80sMjiER4KjPik3C+0mp+C7PU9DPQZg0mOTlK7Jl5+YoBBtutLQwgJRiOpIU7cbCip7BJvNWlKgfsSt5rFmGimv4obPzOpsLwVXuuH+rE\/VYS4dYWZBjlJPm4ipUXBC6\/\/F1\/yGvKwP70+wluu\/pCsF+zJMCmfGgj7ntLpUlhDZyczylbWvmetGApPJCSWtMZ41nKnbXkWc\/VPVzHzygadznCih\/lKQ7Q189eyAON0Tg6hRdxRED6vAV5YhKYcIPoy2+6x8p3QSxWYqO\/B5zBC3LYtV4+f7juLv4mO9Mc5KcP\/foTRVuxxQ789kyjBotPDJ91ZKmrK1FET0H0+M9VTYZOah4B5tW2hqX0e4h2zU5T3mliA0Otaw0FlemxCI82Uiyw+iO0TO6dpyDY4fr6Tj10n7FwnfquR0Ap4etCx8YUoOqwW\/ex1f+N+jrsrMxV0EFeiJpRGmIQvHGHraDrGWeQkSneV0ZQE7z14JuexvzHHO4\/+dBrh3Jrb5tRZLH1BCYl8i50KhOkKqjTCSTKmwtIAeoR6jDBv6tikDvL5WXEit4A1rE9O+l5jOZLjAoSkwg\/TQqxfjicXsBO46XWbjIzim25eImpYRB0GkHVbY4gh0du5s9PMwIPAL+gT9bTcHqL5Nem4IE4QZRDOguueJVTUzwITiBwfyYvKTPa1qZoILnDEd6SjuuYnYYgVq6TrJpPNIKpUwnco5YFyWtY2sdoT8rgMGMANkCy4zvr5oWz12wfPyRcjhKKDiNRirZkgnamSgR0nWDzCK7YK42YE7LJ\/fXq0Y0aEYFxJnCbFBil8S1xTTRvhgVvDM70vV0g9pGdHd7PwEnjpmYS+zx9AqBRKefr72IebOv0s00qY5yGJhiTL1HW1c9lgEk34HF9kZWmm5n2AmcJfU\/Vlx8L+pYRwAtJufBvP+1HReWsUbRSLQvI4lZ4O9H3xCA04L6DgzWcRXgOs3ntODEX8IAh256zBulI7gQ4\/PIXQNtIhh9OTBQhJ4TpbyYqsRPSLvfU02Ghmm05KAcfDiZkz+nINvfMdywfpPaKQnOWMM3rQdxtfx2hOCZSZ1qLIjMgFcPNd5zf00uLID9ziFTXZylP3WNHFpcS9bzM9gPI1\/YLTHxZCBkLmvOmlz8eiBs9Dt26KG07NIkhq5Pt5OAKEM6+4hgLuDtS\/RAESPq5dXXMyvX261swsAWTQgl2f6CQdYQyDZFxO10\/OEYRIXvu655nwZp92pnMyPjSM6b36FBZygch8Qvf3tuwd2KmLt0D\/PJO09TSrAy8e4UOw7ROepCNqdQKf50SnH0LKwLWYCHmEdZuPYNXREeUTik9DEkUTYXrjHD+ozmEYkFucDTQbC4RFH2KEo17+8zK7QfK2DrX2rG76LAoDvu6xJSLxuWui5bcj2PbX03\/BNf2omix0itrbFCAUpH6vshfhdLha3r\/04Zr1+zgFd7FzXYzQFiTs8G4n\/P0ZFJquUpQ2S2XzzorpZolJPA8RgG7Wsrk9obElXznFnyP+9NB+LYToPWdFrIKH+L8wswokCP+xgMuobpF7esGvY5ViY0R4IFkZDzFl2hjc4sV+e6JIa3sd0qGdevIA\/N\/CPAMxQnJxZipu4p\/DiF5SHBeXIfT20iWmdTb4kDRPKErXKpBSci1vSFGEeIvs01\/X5SFM++rqSfy2JFOkREota5xunt1nb2kKPIvmntU6xxOCRXpI0l46COOd0vOOkkZvpQhtXtuwPkcHDzhdGgid1jvzmT9nQxIhdOJoT3y95+zOZWHmYoTkpugJgjmosdN3Tn9J4oj6ELngWkGAKo+Qc7wPOvvVwypPJyzjoWVTiPRxbPU6gUTsz3jfpIsQxu\/pyUOpR9Goq7ucduaPCTW1y9M9yuYhvvOcxDuZBsUL1569tiGowUOHS8cNFJ60PG0Od36gJWJaqmkwIpzgQmR\/QRmHESYRlR2DWDod8e8cugdHrz\/qB\/QGj\/sgUfj3mdbDPc1Vq4eoQIjNt4AKEDsKBTvFE3PrzKYiHkfP46YIdipTbMDtD12PzjN3ZVt\/\/cBzHMhbIaPbZt4fRoPA91235\/Uch5Q85RDCok2SPkI0IuppGlBhwL772M+JRjje0TFEc+s67u87Ux\/7sabh+nwMAzppQixR3dMQCcOO7VGv69uhVD9cR49jNxSuRuW965QREgE\/LN1gOejTf9+jp5+TDHFyuN1uj\/iG+3UyGk3o0M8h2hI5ifvr\/DhwWoFTELZoyT4s8x6gqMB00UZItvK\/h6uVpJuM3GQepgeVj\/uTyP92zRW0syww9qdyqHbOIF9eVVOxq6RUROvStuKG6SfZGmORD1Q5qIewfIU1SuhzuntWR4D9oUWnCpSQBkJRrltjRD5o0yF5Es5e55O1ePgifKkI7PnveOiO4kie0lN0EDaf0s4+h+WCcCpXmY168\/CT6Ivw8+mL8PPpi\/Dz6Yvw8+mL8PPpi\/Dz6Yvw8+k\/UgzVgM3rSG4AAAAASUVORK5CYII="}'
 
 ```
 
 ```javascript
-const url = new URL("http://127.0.0.1:8000/api/users");
+const url = new URL("http://34.87.16.238/api/users");
 
 let headers = {
+    "Authorization": "Bearer {token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 }
@@ -593,14 +663,93 @@ Parameter | Type | Status | Description
 > Example request:
 
 ```bash
-curl -X POST "http://127.0.0.1:8000/api/video" \
+curl -X POST "http://34.87.16.238/api/video" \
+    -H "Authorization: Bearer {token}" \
     -H "Content-Type: application/json" \
     -d '{"title":"video1","file":"\"video file\"","name":"mucsic_video","artist":"Cuongdc123","type":0}'
 
 ```
 
 ```javascript
-const url = new URL("http://127.0.0.1:8000/api/video");
+const url = new URL("http://34.87.16.238/api/video");
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "title": "video1",
+    "file": "\"video file\"",
+    "name": "mucsic_video",
+    "artist": "Cuongdc123",
+    "type": 0
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "status": true,
+    "video": {
+        "id": "1",
+        "name": "video1",
+        "artist": "video1 artist",
+        "type": "1",
+        "thumbnail_url": "http:\/\/videos\/thumbnail\/video_1.png",
+        "video_url": "http:\/\/videos\/url\/video1",
+        "created_at": "2019-01-01 01:00:00",
+        "updated_at": "2019-01-01 01:00:00",
+        "owned": {
+            "name": "Cuongdc123",
+            "id": "1",
+            "profile_picture_url": "https:\/\/lh3.googleusercontent.com\/--jvQFiFavr0\/AAAAAAAAAAI\/AAAAAAAAAAA\/ACHi3rea71C01D1HxUXaqKQ7Djj9e8Li4Q.CMID\/s32-c\/photo.jpg"
+        }
+    }
+}
+```
+
+### HTTP Request
+`POST api/video`
+
+#### Body Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    title | string |  optional  | require the title  of video max 100.
+    file | file |  optional  | require this data is video file for upload.
+    name | string |  optional  | option name of this video max 100.
+    artist | string |  optional  | option the artist of video max 50.
+    type | integer |  optional  | option type of video must in [1,2,3]: 1: このサイトで依頼・購入, 2: 自作, 3: 他で依頼・購入 .
+
+<!-- END_56006d51a57b20bfa0cc331ac6b5d51b -->
+
+<!-- START_56006d51a57b20bfa0cc331ac6b5d51b -->
+## API for user upload video
+
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
+> Example request:
+
+```bash
+curl -X POST "http://34.87.16.238/api/video" \
+    -H "Content-Type: application/json" \
+    -d '{"title":"video1","file":"\"video file\"","name":"mucsic_video","artist":"Cuongdc123","type":0}'
+
+```
+
+```javascript
+const url = new URL("http://34.87.16.238/api/video");
 
 let headers = {
     "Content-Type": "application/json",
@@ -669,11 +818,11 @@ Parameter | Type | Status | Description
 > Example request:
 
 ```bash
-curl -X GET -G "http://127.0.0.1:8000/api/videos" 
+curl -X GET -G "http://34.87.16.238/api/videos" 
 ```
 
 ```javascript
-const url = new URL("http://127.0.0.1:8000/api/videos");
+const url = new URL("http://34.87.16.238/api/videos");
 
 let headers = {
     "Accept": "application/json",
@@ -751,11 +900,11 @@ fetch(url, {
 > Example request:
 
 ```bash
-curl -X GET -G "http://127.0.0.1:8000/api/video/1" 
+curl -X GET -G "http://34.87.16.238/api/video/1" 
 ```
 
 ```javascript
-const url = new URL("http://127.0.0.1:8000/api/video/1");
+const url = new URL("http://34.87.16.238/api/video/1");
 
 let headers = {
     "Accept": "application/json",
