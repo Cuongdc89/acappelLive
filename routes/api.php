@@ -29,12 +29,16 @@ Route::post('register', 'Auth\RegisterController@register');
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('logout', 'Auth\LoginController@logout');
     Route::get('users', 'Auth\UserController@getUserInfo');
-    Route::put('users', 'Auth\UserController@updateUserInfo');
-    Route::post('videos', 'Auth\VideoController@create');
-    Route::post('videos/{id}/comments', 'Auth\VideoController@createComment');
+    Route::post('users', 'Auth\UserController@updateUserInfo');
+    Route::post('video', 'Auth\VideoController@create');
+    Route::post('video/{id}/comment', 'Auth\VideoController@createComment');
 });
 
 Route::get('videos', 'Auth\VideoController@getListVideos');
-Route::get('videos/{id}', 'Auth\VideoController@getVideoInfo');
-Route::get('videos/{id}/comments', 'Auth\VideoController@getListComments');
+Route::get('video/{id}', 'Auth\VideoController@getVideoInfo');
+Route::get('video/{id}/comments', 'Auth\VideoController@getListComments');
+
+Route::post('video/{id}/reation', 'Auth\ReactionController@createReaction');
+Route::get('video/{id}/reations', 'Auth\ReactionController@getListReaction');
+Route::delete('reation/{id}', 'Auth\ReactionController@destroyReaction');
 

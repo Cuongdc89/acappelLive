@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddProfileToUserTable extends Migration
+class CreateAnonymousUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class AddProfileToUserTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('profile_picture_url')->nullable();
+        Schema::create('anonymous_users', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('hash_id');
+
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -26,8 +29,6 @@ class AddProfileToUserTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('profile_picture_url');
-        });
+        Schema::dropIfExists('anonymous_users');
     }
 }

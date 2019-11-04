@@ -225,3 +225,9 @@ curl -H 'Accept: application/json' -H 'Authorization: Bearer token_generated_on_
 * [Laravel docs](https://laravel.com/docs/5.5) - Laravel Documentation
 * [Laravel Passport Post](https://laravelcode.com/post/laravel-passport-create-rest-api-with-authentication) - Create REST API with authentication
 * [Laravel API Tutorial](https://www.toptal.com/laravel/restful-laravel-api-tutorial) - How to Build and Test a RESTful API
+
+
+
+### Step 10 - Install ffmpeg for create Thumbnail image
+
+  ``` https://github.com/lakshmaji/Thumbnail ```

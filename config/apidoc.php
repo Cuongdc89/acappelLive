@@ -64,7 +64,7 @@ return [
                  * Match only routes whose paths match this pattern (use * as a wildcard to match any characters).
                  */
                 'prefixes' => [
-                     'api/*',
+                    'api/*',
                 ],
 
                 /*
@@ -92,7 +92,13 @@ return [
              */
             'exclude' => [
                 'api/register',
-                'api/login'
+                'api/login',
+                'api/video/{id}',
+                'api/videos',
+                'api/video/{id}/comments',
+                'api/video/{id}/reations',
+                'api/video/{id}/reation',
+                'api/reation/{id}'
             ],
 
             /*
@@ -103,7 +109,7 @@ return [
                  * Specify headers to be added to the example requests
                  */
                 'headers' => [
-                     'Authorization' => 'Bearer {token}',
+                    'Authorization' => 'Bearer {token}',
                     // 'Api-Version' => 'v2',
                 ],
 
@@ -224,7 +230,7 @@ return [
              */
             'exclude' => [
                 'api/logout',
-                'api/users'
+                'api/users',
             ],
 
             /*
@@ -355,7 +361,7 @@ return [
      *
      */
     'example_languages' => [
-        'php',
+        //'php',
         'bash',
         'javascript',
     ],
