@@ -344,7 +344,7 @@ return [
     /*
      * Name for the group of routes which do not have a @group set.
      */
-    'default_group' => 'general',
+    'default_group' => 'Auth',
 
     /*
      * Example requests for each endpoint will be shown in each of these languages.
@@ -355,6 +355,7 @@ return [
      *
      */
     'example_languages' => [
+        'php',
         'bash',
         'javascript',
     ],

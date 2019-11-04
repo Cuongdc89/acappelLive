@@ -13,27 +13,40 @@ use App\Http\Controllers\Controller;
 
 class VideoController extends Controller
 {
+    /**
+     * @group Videos
+     */
     public function create()
     {
 
     }
-
+    
+    /**
+     * @group Videos
+     */
     public function getListVideos()
     {
 
     }
-
+    /**
+     * @group Videos
+     */
     public function getVideoInfo($id)
     {
 
     }
 
+    /**
+     * @group Videos
+     */
     public function getListComments()
     {
 
     }
 
-
+    /**
+     * @group Videos
+     */
     public function createComment()
     {
 

@@ -31,8 +31,9 @@ class LoginController extends Controller
     }
 
     /**
-     * @bodyParam email email required The email which user has been register.
-     * @bodyParam password string required The password required min 8 char.
+     * @group Autentication
+     * @bodyParam email email required The email which user has been register. Example: cuongdc@gmail.com
+     * @bodyParam password string required The password required min 8 char. Example: 12345678@a
      * @response {
      *  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjVlOGMyOGM1ZTZ",
      *  "user": {
@@ -67,6 +68,7 @@ class LoginController extends Controller
     }
 
     /**
+     * @group Autentication
      * @response {
      * "status": "true"
      * }

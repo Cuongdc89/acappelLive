@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     /**
+     * @group User Information
+     * API for get user information
+     * @title get user information
+     * @authenticated
      * @response {
      * "status": "true",
      * "user" : {
@@ -41,6 +45,9 @@ class UserController extends Controller
     }
 
     /**
+     * @group User Information
+     * API for update user information (user name, profile picture)
+     * @authenticated
      * @bodyParam name string option update user name of auth user.
      * @bodyParam profile_picture file option update profile of user
      * @response {
