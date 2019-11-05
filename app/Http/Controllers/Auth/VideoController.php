@@ -117,33 +117,33 @@ class VideoController extends Controller
     /**
      * @group Videos
      * API for get list videos
-     * @queryParam page int option this field use to filter what page client want to get.( default 10 video for 1 page): Example: 1
-     * @queryParam q string option this field use to filter tilte of video. Example: abc
+     * @queryParam page int option this field use to filter what page client want to get ( default 10 video for 1 page). Example: 1
      * @queryParam type int option this field use to filter type of video. Example: 2
      * @queryParam user_id int option this field use to filter list video upload by an user. Example: 2
+     * @queryParam search string option this field use to filter tilte of video. Example: abc
      * @response {
-     *"status": true,
-     *"videos": [
-     *{
-     *"id": 1,
-     *"user_id": 2,
-     *"title": "do.cao.cuong1@alliedtechbase.com",
-     *"name": null,
-     *"type": 2,
-     *"view_count": 100,
-     *"thumbnail_url": null,
-     *"video_url": "http://127.0.0.1:8000/uploads/1572854724_download (7).jpeg",
-     *"deleted_at": null,
-     *"created_at": "2019-11-04 08:05:24",
-     *"updated_at": "2019-11-04 08:05:24",
-     *"user": {
-     *"id": 2,
-     *"name": "Cuongdc123",
-     *"email": "do.cao.cuong1@alliedtechbase.com",
-     *"created_at": "2019-10-23 04:15:26",
-     *"updated_at": "2019-11-04 07:39:14",
-     *"profile_picture_url": "http://127.0.0.1:8000/avatars/image_1572853154.png"
-     *},
+     * "status": true,
+     * "videos": [
+     * {
+     * "id": 1,
+     * "user_id": 2,
+     * "title": "do.cao.cuong1@alliedtechbase.com",
+     * "name": null,
+     * "type": 2,
+     * "view_count": 100,
+     * "thumbnail_url": null,
+     * "video_url": "http://127.0.0.1:8000/uploads/1572854724_download (7).jpeg",
+     * "deleted_at": null,
+     * "created_at": "2019-11-04 08:05:24",
+     * "updated_at": "2019-11-04 08:05:24",
+     * "user": {
+     * "id": 2,
+     * "name": "Cuongdc123",
+     * "email": "do.cao.cuong1@alliedtechbase.com",
+     * "created_at": "2019-10-23 04:15:26",
+     * "updated_at": "2019-11-04 07:39:14",
+     * "profile_picture_url": "http://127.0.0.1:8000/avatars/image_1572853154.png"
+     * },
      * "reactions":[
      * {"type": 1, "count": 1, "reaction_status": true},
      * {"type": 2, "count": 1, "reaction_status": true},
@@ -151,27 +151,27 @@ class VideoController extends Controller
      * {"type": 4, "count": 0, "reaction_status": false},
      * {"type": 5, "count": 0, "reaction_status": false}
      * ]
-     *},
-     *{
-     *"id": 2,
-     *"user_id": 2,
-     *"title": "do.cao.cuong1@alliedtechbase.com",
-     *"name": null,
-     *"type": 2,
-     *"view_count": 100,
-     *"thumbnail_url": null,
-     *"video_url": "http://127.0.0.1:8000/uploads/1572854727_download (7).jpeg",
-     *"deleted_at": null,
-     *"created_at": "2019-11-04 08:05:27",
-     *"updated_at": "2019-11-04 08:05:27",
-     *"user": {
-     *"id": 2,
-     *"name": "Cuongdc123",
-     *"email": "do.cao.cuong1@alliedtechbase.com",
-     *"created_at": "2019-10-23 04:15:26",
-     *"updated_at": "2019-11-04 07:39:14",
-     *"profile_picture_url": "http://127.0.0.1:8000/avatars/image_1572853154.png"
-     *},
+     * },
+     * {
+     * "id": 2,
+     * "user_id": 2,
+     * "title": "do.cao.cuong1@alliedtechbase.com",
+     * "name": null,
+     * "type": 2,
+     * "view_count": 100,
+     * "thumbnail_url": null,
+     * "video_url": "http://127.0.0.1:8000/uploads/1572854727_download (7).jpeg",
+     * "deleted_at": null,
+     * "created_at": "2019-11-04 08:05:27",
+     * "updated_at": "2019-11-04 08:05:27",
+     * "user": {
+     * "id": 2,
+     * "name": "Cuongdc123",
+     * "email": "do.cao.cuong1@alliedtechbase.com",
+     * "created_at": "2019-10-23 04:15:26",
+     * "updated_at": "2019-11-04 07:39:14",
+     * "profile_picture_url": "http://127.0.0.1:8000/avatars/image_1572853154.png"
+     * },
      * "reactions":[
      * {"type": 1, "count": 1, "reaction_status": true},
      * {"type": 2, "count": 1, "reaction_status": true},
@@ -179,19 +179,19 @@ class VideoController extends Controller
      * {"type": 4, "count": 0, "reaction_status": false},
      * {"type": 5, "count": 0, "reaction_status": false}
      * ]
-     *}
-     *],
-     *"meta_data": {
-     *"total": 2,
-     *"paging": {
-     *"current_page": 1,
-     *"last_page": 1,
-     *"per_page": 10,
-     *"from": 0,
-     *"to": 2
-     *}
-     *}
-     *}
+     * }
+     * ],
+     * "meta_data": {
+     * "total": 2,
+     * "paging": {
+     * "current_page": 1,
+     * "last_page": 1,
+     * "per_page": 10,
+     * "from": 0,
+     * "to": 2
+     * }
+     * }
+     * }
      */
     public function getListVideos(Request $request)
     {
@@ -202,8 +202,8 @@ class VideoController extends Controller
             $query->where('user_id', $input['user_id']);
         }
 
-        if (isset($input['q'])) {
-            $query->where('videos.title', 'LIKE',  "%{$input['q']}%");
+        if (isset($input['search'])) {
+            $query->where('videos.title', 'LIKE',  "%{$input['search']}%");
         }
 
         $totalVideos = $query->count();
@@ -250,7 +250,7 @@ class VideoController extends Controller
         return response()->json($data, 200);
     }
 
-    
+
     /**
      * @group Videos
      * API for get video detail.
