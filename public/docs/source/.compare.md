@@ -151,7 +151,7 @@ Parameter | Type | Status | Description
 ```bash
 curl -X POST "http://34.87.16.238/api/register" \
     -H "Content-Type: application/json" \
-    -d '{"email":"occaecati","password":"eius","password_confirmation":"unde","name":"nemo"}'
+    -d '{"email":"a","password":"aut","password_confirmation":"ab","name":"esse"}'
 
 ```
 
@@ -164,10 +164,10 @@ let headers = {
 }
 
 let body = {
-    "email": "occaecati",
-    "password": "eius",
-    "password_confirmation": "unde",
-    "name": "nemo"
+    "email": "a",
+    "password": "aut",
+    "password_confirmation": "ab",
+    "name": "esse"
 }
 
 fetch(url, {
@@ -971,6 +971,60 @@ fetch(url, {
 ```
 
 
+> Example response (200):
+
+```json
+{
+    "status": true,
+    "video": {
+        "id": 1,
+        "user_id": 2,
+        "title": "do.cao.cuong1@alliedtechbase.com",
+        "name": null,
+        "type": null,
+        "thumbnail_url": null,
+        "video_url": "http:\/\/127.0.0.1:8000\/uploads\/1572854724_download (7).jpeg",
+        "deleted_at": null,
+        "created_at": "2019-11-04 08:05:24",
+        "updated_at": "2019-11-04 08:05:24",
+        "user": {
+            "id": 1,
+            "name": "Cuongdc",
+            "email": "do.cao.cuong@alliedtechbase.com",
+            "created_at": "2019-10-23 04:01:24",
+            "updated_at": "2019-10-23 04:01:24",
+            "profile_picture_url": null
+        },
+        "reactions": [
+            {
+                "type": 1,
+                "count": 1,
+                "reaction_status": true
+            },
+            {
+                "type": 2,
+                "count": 1,
+                "reaction_status": true
+            },
+            {
+                "type": 3,
+                "count": 0,
+                "reaction_status": false
+            },
+            {
+                "type": 4,
+                "count": 0,
+                "reaction_status": false
+            },
+            {
+                "type": 5,
+                "count": 0,
+                "reaction_status": false
+            }
+        ]
+    }
+}
+```
 > Example response (500):
 
 ```json

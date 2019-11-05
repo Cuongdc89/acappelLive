@@ -244,7 +244,7 @@ class VideoController extends Controller
     /**
      * @group Videos
      * API for get video detail.
-     * @responce {
+     * @response {
      * "status": true,
      * "video": {
      * "id": 1,
