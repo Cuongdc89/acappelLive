@@ -151,7 +151,7 @@ Parameter | Type | Status | Description
 ```bash
 curl -X POST "http://34.87.16.238/api/register" \
     -H "Content-Type: application/json" \
-    -d '{"email":"architecto","password":"eaque","password_confirmation":"est","name":"blanditiis"}'
+    -d '{"email":"sit","password":"eos","password_confirmation":"sunt","name":"est"}'
 
 ```
 
@@ -164,10 +164,10 @@ let headers = {
 }
 
 let body = {
-    "email": "architecto",
-    "password": "eaque",
-    "password_confirmation": "est",
-    "name": "blanditiis"
+    "email": "sit",
+    "password": "eos",
+    "password_confirmation": "sunt",
+    "name": "est"
 }
 
 fetch(url, {
@@ -285,69 +285,7 @@ fetch(url, {
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    comment_text | string |  optional  | require comment content for video.
-
-<!-- END_12843026c1a22533a2513cb16ccd1cc4 -->
-
-<!-- START_12843026c1a22533a2513cb16ccd1cc4 -->
-## API for create a comment for a video
-
-<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
-> Example request:
-
-```bash
-curl -X POST "http://34.87.16.238/api/video/1/comment" \
-    -H "Content-Type: application/json" \
-    -d '{"comment_text":"Comment content for video."}'
-
-```
-
-```javascript
-const url = new URL("http://34.87.16.238/api/video/1/comment");
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-}
-
-let body = {
-    "comment_text": "Comment content for video."
-}
-
-fetch(url, {
-    method: "POST",
-    headers: headers,
-    body: body
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-> Example response (200):
-
-```json
-{
-    "status": true,
-    "comment": {
-        "user_id": 2,
-        "video_id": 1,
-        "comment_text": "this is a comment too",
-        "updated_at": "2019-11-04 08:45:17",
-        "created_at": "2019-11-04 08:45:17",
-        "id": 2
-    }
-}
-```
-
-### HTTP Request
-`POST api/video/{id}/comment`
-
-#### Body Parameters
-
-Parameter | Type | Status | Description
---------- | ------- | ------- | ------- | -----------
-    comment_text | string |  optional  | require comment content for video.
+    comment_text | string |  required  | comment content for video.
 
 <!-- END_12843026c1a22533a2513cb16ccd1cc4 -->
 
@@ -357,11 +295,16 @@ Parameter | Type | Status | Description
 > Example request:
 
 ```bash
-curl -X GET -G "http://34.87.16.238/api/video/1/comments" 
+curl -X GET -G "http://34.87.16.238/api/video/1/comments?page=1" 
 ```
 
 ```javascript
 const url = new URL("http://34.87.16.238/api/video/1/comments");
+
+    let params = {
+            "page": "1",
+        };
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
 let headers = {
     "Accept": "application/json",
@@ -381,13 +324,71 @@ fetch(url, {
 
 ```json
 {
-    "status": true
+    "status": true,
+    "comments": [
+        {
+            "id": 1,
+            "user_id": 2,
+            "video_id": 1,
+            "comment_text": "this is a comment",
+            "deleted_at": null,
+            "created_at": "2019-11-04 08:45:04",
+            "updated_at": "2019-11-04 08:45:04",
+            "user": {
+                "id": 1,
+                "name": "Cuongdc",
+                "email": "do.cao.cuong@alliedtechbase.com",
+                "created_at": "2019-10-23 04:01:24",
+                "updated_at": "2019-10-23 04:01:24",
+                "profile_picture_url": null
+            }
+        },
+        {
+            "id": 2,
+            "user_id": 2,
+            "video_id": 1,
+            "comment_text": "this is a comment too",
+            "deleted_at": null,
+            "created_at": "2019-11-04 08:45:17",
+            "updated_at": "2019-11-04 08:45:17",
+            "user": {
+                "id": 1,
+                "name": "Cuongdc",
+                "email": "do.cao.cuong@alliedtechbase.com",
+                "created_at": "2019-10-23 04:01:24",
+                "updated_at": "2019-10-23 04:01:24",
+                "profile_picture_url": null
+            }
+        }
+    ],
+    "meta_data": {
+        "total": 0,
+        "paging": {
+            "current_page": 1,
+            "last_page": 0,
+            "per_page": 10,
+            "from": 0,
+            "to": 0
+        }
+    }
+}
+```
+> Example response (500):
+
+```json
+{
+    "message": "Server Error"
 }
 ```
 
 ### HTTP Request
 `GET api/video/{id}/comments`
 
+#### Query Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -----------
+    page |  optional  | int option this field use to filter what page client want to get.( default 10 video for 1 page):
 
 <!-- END_5a530f12a0b9a4af4285402ac872fe67 -->
 
@@ -431,7 +432,20 @@ fetch(url, {
 > Example response (200):
 
 ```json
-null
+{
+    "status": true
+}
+```
+> Example response (404):
+
+```json
+{
+    "status": false,
+    "errors": {
+        "code": -1,
+        "msg": "User already Reaction"
+    }
+}
 ```
 
 ### HTTP Request
@@ -441,7 +455,7 @@ null
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    type | integer |  optional  | require The type of reaction (must be in array [1,2,3,4]. 1: REED, 2: HARMONIZED, 3: EXPRESSIVE, 4: RHYTHM.
+    type | integer |  required  | The type of reaction. (must be in array [1,2,3,4, 5]. 1: REED, 2: HARMONIZED, 3: EXPRESSIVE, 4: RHYTHM, 5: CARE (消さないで！).
 
 <!-- END_d824dd7c6cd0e02c7f529f49e8deee33 -->
 
@@ -474,7 +488,36 @@ fetch(url, {
 > Example response (200):
 
 ```json
-null
+{
+    "status": true,
+    "reactions": [
+        {
+            "type": "1",
+            "count": "4",
+            "reaction_status": true
+        },
+        {
+            "type": "2",
+            "count": "4",
+            "reaction_status": true
+        },
+        {
+            "type": "3",
+            "count": "20",
+            "reaction_status": true
+        },
+        {
+            "type": "4",
+            "count": "10",
+            "reaction_status": true
+        },
+        {
+            "type": "5",
+            "count": "100",
+            "reaction_status": true
+        }
+    ]
+}
 ```
 > Example response (500):
 
@@ -666,7 +709,7 @@ Parameter | Type | Status | Description
 curl -X POST "http://34.87.16.238/api/video" \
     -H "Authorization: Bearer {token}" \
     -H "Content-Type: application/json" \
-    -d '{"title":"video1","file":"\"video file\"","name":"mucsic_video","artist":"Cuongdc123","type":0}'
+    -d '{"title":"video1","file":"\"video file\"","type":0,"name":"mucsic_video","artist":"Cuongdc123"}'
 
 ```
 
@@ -682,9 +725,9 @@ let headers = {
 let body = {
     "title": "video1",
     "file": "\"video file\"",
+    "type": 0,
     "name": "mucsic_video",
-    "artist": "Cuongdc123",
-    "type": 0
+    "artist": "Cuongdc123"
 }
 
 fetch(url, {
@@ -711,7 +754,7 @@ fetch(url, {
         "video_url": "http:\/\/videos\/url\/video1",
         "created_at": "2019-01-01 01:00:00",
         "updated_at": "2019-01-01 01:00:00",
-        "owned": {
+        "user": {
             "name": "Cuongdc123",
             "id": "1",
             "profile_picture_url": "https:\/\/lh3.googleusercontent.com\/--jvQFiFavr0\/AAAAAAAAAAI\/AAAAAAAAAAA\/ACHi3rea71C01D1HxUXaqKQ7Djj9e8Li4Q.CMID\/s32-c\/photo.jpg"
@@ -727,88 +770,11 @@ fetch(url, {
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    title | string |  optional  | require the title  of video max 100.
-    file | file |  optional  | require this data is video file for upload.
+    title | string |  required  | the title  of video max 100.
+    file | file |  required  | this data is video file for upload.
+    type | integer |  required  | type of video must in [1,2,3]: 1: このサイトで依頼・購入, 2: 自作, 3: 他で依頼・購入 .
     name | string |  optional  | option name of this video max 100.
     artist | string |  optional  | option the artist of video max 50.
-    type | integer |  optional  | option type of video must in [1,2,3]: 1: このサイトで依頼・購入, 2: 自作, 3: 他で依頼・購入 .
-
-<!-- END_56006d51a57b20bfa0cc331ac6b5d51b -->
-
-<!-- START_56006d51a57b20bfa0cc331ac6b5d51b -->
-## API for user upload video
-
-<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
-> Example request:
-
-```bash
-curl -X POST "http://34.87.16.238/api/video" \
-    -H "Content-Type: application/json" \
-    -d '{"title":"video1","file":"\"video file\"","name":"mucsic_video","artist":"Cuongdc123","type":0}'
-
-```
-
-```javascript
-const url = new URL("http://34.87.16.238/api/video");
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-}
-
-let body = {
-    "title": "video1",
-    "file": "\"video file\"",
-    "name": "mucsic_video",
-    "artist": "Cuongdc123",
-    "type": 0
-}
-
-fetch(url, {
-    method: "POST",
-    headers: headers,
-    body: body
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-> Example response (200):
-
-```json
-{
-    "status": true,
-    "video": {
-        "id": "1",
-        "name": "video1",
-        "artist": "video1 artist",
-        "type": "1",
-        "thumbnail_url": "http:\/\/videos\/thumbnail\/video_1.png",
-        "video_url": "http:\/\/videos\/url\/video1",
-        "created_at": "2019-01-01 01:00:00",
-        "updated_at": "2019-01-01 01:00:00",
-        "owned": {
-            "name": "Cuongdc123",
-            "id": "1",
-            "profile_picture_url": "https:\/\/lh3.googleusercontent.com\/--jvQFiFavr0\/AAAAAAAAAAI\/AAAAAAAAAAA\/ACHi3rea71C01D1HxUXaqKQ7Djj9e8Li4Q.CMID\/s32-c\/photo.jpg"
-        }
-    }
-}
-```
-
-### HTTP Request
-`POST api/video`
-
-#### Body Parameters
-
-Parameter | Type | Status | Description
---------- | ------- | ------- | ------- | -----------
-    title | string |  optional  | require the title  of video max 100.
-    file | file |  optional  | require this data is video file for upload.
-    name | string |  optional  | option name of this video max 100.
-    artist | string |  optional  | option the artist of video max 50.
-    type | integer |  optional  | option type of video must in [1,2,3]: 1: このサイトで依頼・購入, 2: 自作, 3: 他で依頼・購入 .
 
 <!-- END_56006d51a57b20bfa0cc331ac6b5d51b -->
 
@@ -818,11 +784,18 @@ Parameter | Type | Status | Description
 > Example request:
 
 ```bash
-curl -X GET -G "http://34.87.16.238/api/videos" 
+curl -X GET -G "http://34.87.16.238/api/videos?page=1&q=abc&user_id=2" 
 ```
 
 ```javascript
 const url = new URL("http://34.87.16.238/api/videos");
+
+    let params = {
+            "page": "1",
+            "q": "abc",
+            "user_id": "2",
+        };
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
 let headers = {
     "Accept": "application/json",
@@ -855,13 +828,13 @@ fetch(url, {
             "deleted_at": null,
             "created_at": "2019-11-04 08:05:24",
             "updated_at": "2019-11-04 08:05:24",
-            "owned": {
-                "id": 1,
-                "name": "Cuôngdc",
-                "email": "do.cao.cuong@alliedtechbase.com",
-                "created_at": "2019-10-23 04:01:24",
-                "updated_at": "2019-10-23 04:01:24",
-                "profile_picture_url": null
+            "user": {
+                "id": 2,
+                "name": "Cuongdc123",
+                "email": "do.cao.cuong1@alliedtechbase.com",
+                "created_at": "2019-10-23 04:15:26",
+                "updated_at": "2019-11-04 07:39:14",
+                "profile_picture_url": "http:\/\/127.0.0.1:8000\/avatars\/image_1572853154.png"
             }
         },
         {
@@ -875,22 +848,39 @@ fetch(url, {
             "deleted_at": null,
             "created_at": "2019-11-04 08:05:27",
             "updated_at": "2019-11-04 08:05:27",
-            "owned": {
-                "id": 1,
-                "name": "Cuôngdc",
-                "email": "do.cao.cuong@alliedtechbase.com",
-                "created_at": "2019-10-23 04:01:24",
-                "updated_at": "2019-10-23 04:01:24",
-                "profile_picture_url": null
+            "user": {
+                "id": 2,
+                "name": "Cuongdc123",
+                "email": "do.cao.cuong1@alliedtechbase.com",
+                "created_at": "2019-10-23 04:15:26",
+                "updated_at": "2019-11-04 07:39:14",
+                "profile_picture_url": "http:\/\/127.0.0.1:8000\/avatars\/image_1572853154.png"
             }
         }
-    ]
+    ],
+    "meta_data": {
+        "total": 2,
+        "paging": {
+            "current_page": "1",
+            "last_page": 1,
+            "per_page": 10,
+            "from": 0,
+            "to": 2
+        }
+    }
 }
 ```
 
 ### HTTP Request
 `GET api/videos`
 
+#### Query Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -----------
+    page |  optional  | int option this field use to filter what page client want to get.( default 10 video for 1 page):
+    q |  optional  | string option this field use to filter tilte of video.
+    user_id |  optional  | int option this field use to filter list video upload by an user.
 
 <!-- END_163aba6e8558a53b9c4ee0dfa18a20e9 -->
 
@@ -936,7 +926,7 @@ fetch(url, {
         "deleted_at": null,
         "created_at": "2019-11-04 08:05:24",
         "updated_at": "2019-11-04 08:05:24",
-        "owned": {
+        "user": {
             "id": 1,
             "name": "Cuôngdc",
             "email": "do.cao.cuong@alliedtechbase.com",

@@ -17,11 +17,11 @@ class ReactionController extends Controller
     /**
      * @group Reaction
      * API for create a reaction for a video
-     * @bodyParam type int require The type of reaction (must be in array [1,2,3,4]. 1: REED, 2: HARMONIZED, 3: EXPRESSIVE, 4: RHYTHM. Example: 1
+     * @bodyParam type int required The type of reaction. (must be in array [1,2,3,4, 5]. 1: REED, 2: HARMONIZED, 3: EXPRESSIVE, 4: RHYTHM, 5: CARE (消さないで！). Example: 1
      * @response {
      * "status": true
      * }
-     * @response Errors {
+     * @response 404 {
      * "status": false,
      * "errors": {
      * "code": -1,
@@ -160,20 +160,25 @@ class ReactionController extends Controller
      *  "reaction_status": true
      * },
      * {
-     *  "type" : "2",
-     *  "count": "3",
+     * "type" : "2",
+     *  "count": "4",
+     *  "reaction_status": true
+     * },
+     *  {
+     *  "type" : "3",
+     *  "count": "20",
      *  "reaction_status": true
      * },
      * {
-     *  "type" : "3",
-     *  "count": "6",
-     *  "reaction_status": false
-     * },
-     * {
-     *  "type" : "4",
-     *  "count": "0",
-     *  "reaction_status": false
-     * },
+     * "type" : "4",
+     *  "count": "10",
+     *  "reaction_status": true
+     * }
+     * , {
+     *  "type" : "5",
+     *  "count": "100",
+     *  "reaction_status": true
+     * }
      * ]
      * }
      */
@@ -232,6 +237,7 @@ class ReactionController extends Controller
         $countHar = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_HARMONIZED)->count();
         $countEx = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_EXPRESSIVE)->count();
         $countRH = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_RHYTHM)->count();
+        $countCA = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_CARE)->count();
 
         return $data = array(
             [
@@ -253,6 +259,11 @@ class ReactionController extends Controller
                 "type"  => Reaction::TYPE_RHYTHM,
                 "count" => $countRH,
                 "reaction_status" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_RHYTHM, $authType),
+            ],
+            [
+                "type"  => Reaction::TYPE_CARE,
+                "count" => $countCA,
+                "reaction_status" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_CARE, $authType),
             ]
         );
     }

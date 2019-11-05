@@ -9,24 +9,28 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Comment;
 use App\Models\Video;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
-use PhpParser\Node\Expr\New_;
 
+/**
+ * Class VideoController
+ * @package App\Http\Controllers\Auth
+ */
 class VideoController extends Controller
 {
+
+    const DEFAULT_PAGE_SIZE = 10;
     /**
      * @group Videos
      * API for user upload video
      * @authenticated
-     * @bodyParam title string require the title  of video max 100. Example: video1
-     * @bodyParam file file require this data is video file for upload. Example:"video file"
+     * @bodyParam title string required the title  of video max 100. Example: video1
+     * @bodyParam file file required this data is video file for upload. Example:"video file"
+     * @bodyParam type int required type of video must in [1,2,3]: 1: このサイトで依頼・購入, 2: 自作, 3: 他で依頼・購入 . Example: Cuongdc123
      * @bodyParam name string option name of this video max 100. Example: mucsic_video
      * @bodyParam artist string option the artist of video max 50. Example: Cuongdc123
-     * @bodyParam type int option type of video must in [1,2,3]: 1: このサイトで依頼・購入, 2: 自作, 3: 他で依頼・購入 . Example: Cuongdc123
      * @response {
      * "status": true,
      * "video": {
@@ -38,7 +42,7 @@ class VideoController extends Controller
      * "video_url": "http://videos/url/video1",
      * "created_at": "2019-01-01 01:00:00",
      * "updated_at": "2019-01-01 01:00:00",
-     * "owned": {
+     * "user": {
      *  "name": "Cuongdc123",
      *  "id": "1",
      *  "profile_picture_url": "https://lh3.googleusercontent.com/--jvQFiFavr0/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rea71C01D1HxUXaqKQ7Djj9e8Li4Q.CMID/s32-c/photo.jpg"
@@ -90,78 +94,133 @@ class VideoController extends Controller
             if (Request::has("artist")) {
                 $video->artist = $input['artist'];
             }
+
             if (Request::has("type")) {
                 $video->type = $input['type'];
             }
 
             $video->save();
-            $video->owned = $user;
+            $video->user = $user;
 
             $data['video'] = $video;
             $data["status"] = true;
             return response()->json($data, 200);
         } catch (\Exception $e) {
-            return response()->json($e->getMessage());
+            $data["status"] = false;
+            return response()->json($data, 200);
         }
     }
     
     /**
      * @group Videos
      * API for get list videos
-     * @respone {
-     * "status": true,
+     * @queryParam page int option this field use to filter what page client want to get.( default 10 video for 1 page): Example: 1
+     * @queryParam q string option this field use to filter tilte of video. Example: abc
+     * @queryParam user_id int option this field use to filter list video upload by an user. Example: 2
+     * @response {
+     *"status": true,
      *"videos": [
-     * {
-     * "id": 1,
-     * "user_id": 2,
-     * "title": "do.cao.cuong1@alliedtechbase.com",
-     * "name": null,
-     * "type": null,
-     * "thumbnail_url": null,
-     * "video_url": "http://127.0.0.1:8000/uploads/1572854724_download (7).jpeg",
-     * "created_at": "2019-11-04 08:05:24",
-     * "updated_at": "2019-11-04 08:05:24",
-     * "owned": {
-     * "id": 1,
-     * "name": "Cuongdc",
-     * "email": "do.cao.cuong@alliedtechbase.com",
-     * "created_at": "2019-10-23 04:01:24",
-     * "updated_at": "2019-10-23 04:01:24",
-     * "profile_picture_url": null
-     * }
-     * },
-     * {
-     * "id": 2,
-     * "user_id": 2,
-     * "title": "do.cao.cuong1@alliedtechbase.com",
-     * "name": null,
-     * "type": null,
-     * "thumbnail_url": null,
-     * "video_url": "http://127.0.0.1:8000/uploads/1572854727_download (7).jpeg",
-     * "created_at": "2019-11-04 08:05:27",
-     * "updated_at": "2019-11-04 08:05:27",
-     * "owned": {
-     * "id": 1,
-     * "name": "Cuôngdc",
-     * "email": "do.cao.cuong@alliedtechbase.com",
-     * "created_at": "2019-10-23 04:01:24",
-     * "updated_at": "2019-10-23 04:01:24",
-     * "profile_picture_url": null
-     * }
-     * }
-     * ]
-     * }
+     *{
+     *"id": 1,
+     *"user_id": 2,
+     *"title": "do.cao.cuong1@alliedtechbase.com",
+     *"name": null,
+     *"type": null,
+     *"thumbnail_url": null,
+     *"video_url": "http://127.0.0.1:8000/uploads/1572854724_download (7).jpeg",
+     *"deleted_at": null,
+     *"created_at": "2019-11-04 08:05:24",
+     *"updated_at": "2019-11-04 08:05:24",
+     *"user": {
+     *"id": 2,
+     *"name": "Cuongdc123",
+     *"email": "do.cao.cuong1@alliedtechbase.com",
+     *"created_at": "2019-10-23 04:15:26",
+     *"updated_at": "2019-11-04 07:39:14",
+     *"profile_picture_url": "http://127.0.0.1:8000/avatars/image_1572853154.png"
+     *}
+     *},
+     *{
+     *"id": 2,
+     *"user_id": 2,
+     *"title": "do.cao.cuong1@alliedtechbase.com",
+     *"name": null,
+     *"type": null,
+     *"thumbnail_url": null,
+     *"video_url": "http://127.0.0.1:8000/uploads/1572854727_download (7).jpeg",
+     *"deleted_at": null,
+     *"created_at": "2019-11-04 08:05:27",
+     *"updated_at": "2019-11-04 08:05:27",
+     *"user": {
+     *"id": 2,
+     *"name": "Cuongdc123",
+     *"email": "do.cao.cuong1@alliedtechbase.com",
+     *"created_at": "2019-10-23 04:15:26",
+     *"updated_at": "2019-11-04 07:39:14",
+     *"profile_picture_url": "http://127.0.0.1:8000/avatars/image_1572853154.png"
+     *}
+     *}
+     *],
+     *"meta_data": {
+     *"total": 2,
+     *"paging": {
+     *"current_page": 1,
+     *"last_page": 1,
+     *"per_page": 10,
+     *"from": 0,
+     *"to": 2
+     *}
+     *}
+     *}
      */
-    public function getListVideos()
+    public function getListVideos(Request $request)
     {
-        $videos = Video::get();
+        $input = $request::all();
+        $query = Video::where('id', '<>', 0);
+        
+        if (isset($input['user_id']) && $input['user_id'] > 0) {
+            $query->where('user_id', $input['user_id']);
+        }
+
+        $totalVideos = $query->count();
+
+        $currentPage    = isset($input['page']) ? $input['page'] : 1;
+        $lastPage       = ceil($totalVideos / static::DEFAULT_PAGE_SIZE);
+
+        if ($currentPage > $lastPage) {
+            $currentPage = $lastPage;
+        }
+
+        if ($currentPage <= 0 ) {
+            $currentPage = 1;
+        }
+
+        $offsetFrom     = (($currentPage - 1) * static::DEFAULT_PAGE_SIZE);
+        $offsetTo       = ($lastPage > $currentPage) ? $currentPage * static::DEFAULT_PAGE_SIZE : $totalVideos;
+        $query->offset($offsetFrom);
+        $query->limit(static::DEFAULT_PAGE_SIZE);
+
+        $videos =  $query->get();
+
+
         $data["status"] = true;
 
 
         foreach ($videos as $video) {
-            $video->owned = User::find($video->user_id)->first();
+            $video->user = User::where('id', $video->user_id)->get()->first();
             $data['videos'][] = $video;
         }
+
+        $data['meta_data'] = [
+            'total'         => $totalVideos,
+            'paging'        => [
+                'current_page'  => $currentPage,
+                'last_page'     => $lastPage,
+                'per_page'      => static::DEFAULT_PAGE_SIZE,
+                'from'          => $offsetFrom,
+                'to'            => $offsetTo,
+                ]
+        ];
 
         return response()->json($data, 200);
     }
@@ -181,7 +240,7 @@ class VideoController extends Controller
      * "deleted_at": null,
      * "created_at": "2019-11-04 08:05:24",
      * "updated_at": "2019-11-04 08:05:24",
-     * "owned": {
+     * "user": {
      * "id": 1,
      * "name": "Cuongdc",
      * "email": "do.cao.cuong@alliedtechbase.com",
@@ -196,136 +255,11 @@ class VideoController extends Controller
     {
         $video = Video::find($id)->first();
         if ($video) {
-            $video->owned = User::find($video->user_id)->first();
+            $video->user = User::find($video->user_id)->first();
         }
 
         $data["status"] = true;
         $data['video'] = $video;
-
-        return response()->json($data, 200);
-    }
-
-    /**
-     * @group Comments
-     * API for get list comments of a video
-     * @responce {
-     * "status": true,
-     * "comments": [
-     * {
-     * "id": 1,
-     * "user_id": 2,
-     * "video_id": 1,
-     * "comment_text": "this is a comment",
-     * "deleted_at": null,
-     * "created_at": "2019-11-04 08:45:04",
-     * "updated_at": "2019-11-04 08:45:04",
-     * "owned": {
-     * "id": 1,
-     * "name": "Cuongdc",
-     * "email": "do.cao.cuong@alliedtechbase.com",
-     * "created_at": "2019-10-23 04:01:24",
-     * "updated_at": "2019-10-23 04:01:24",
-     * "profile_picture_url": null
-     * }
-     * },
-     * {
-     * "id": 2,
-     * "user_id": 2,
-     * "video_id": 1,
-     * "comment_text": "this is a comment too",
-     * "deleted_at": null,
-     * "created_at": "2019-11-04 08:45:17",
-     * "updated_at": "2019-11-04 08:45:17",
-     * "owned": {
-     * "id": 1,
-     * "name": "Cuongdc",
-     * "email": "do.cao.cuong@alliedtechbase.com",
-     * "created_at": "2019-10-23 04:01:24",
-     * "updated_at": "2019-10-23 04:01:24",
-     * "profile_picture_url": null
-     * }
-     * }
-     * ]
-     * }
-     */
-    public function getListComments(Request $request, $id)
-    {
-        $video = Video::find($id)->first();
-        $data["status"] = true;
-        if (!$video) {
-            $data["status"] = false;
-            $data['errors'] = array(
-                'code' => -100,
-                'msg'  => "video id not valid"
-            );
-
-            return response()->json($data, 200);
-        }
-
-        $comments = Comment::where('video_id', $id)->get();
-
-        foreach ($comments as $comment) {
-            $comment->owned = User::find($comment->user_id)->first();
-            $data['comments'][] = $comment;
-        }
-
-
-        return response()->json($data, 200);
-    }
-
-    /**
-     * @group Comments
-     * API for create a comment for a video
-     *
-     * @authenticated
-     * @bodyParam comment_text string require comment content for video. Example: Comment content for video.
-     * @response {
-     * "status": true,
-     * "comment": {
-     * "user_id": 2,
-     * "video_id": 1,
-     * "comment_text": "this is a comment too",
-     * "updated_at": "2019-11-04 08:45:17",
-     * "created_at": "2019-11-04 08:45:17",
-     * "id": 2
-     * }
-     * }
-     */
-    public function createComment(Request $request, $id)
-    {
-        $user = Auth::user();
-        $input = $request::all();
-
-        if (!Request::has('comment_text')) {
-            $data["status"] = false;
-            $data['errors'] = array(
-                'code' => -100,
-                'msg'  => "comment_text required"
-            );
-        }
-
-        $video = Video::find($id)->first();
-
-        if (!$video) {
-            $data["status"] = false;
-            $data['errors'] = array(
-                'code' => -100,
-                'msg'  => "video id not valid"
-            );
-
-            return response()->json($data, 200);
-        }
-
-        $comment = new Comment();
-
-        $comment->user_id       = $user['id'];
-        $comment->video_id      = $video->id;
-        $comment->comment_text  = $input['comment_text'];
-
-        $comment->save();
-
-        $data["status"] = true;
-        $data['comment'] = $comment;
 
         return response()->json($data, 200);
     }

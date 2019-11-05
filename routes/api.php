@@ -31,12 +31,12 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('users', 'Auth\UserController@getUserInfo');
     Route::post('users', 'Auth\UserController@updateUserInfo');
     Route::post('video', 'Auth\VideoController@create');
-    Route::post('video/{id}/comment', 'Auth\VideoController@createComment');
+    Route::post('video/{id}/comment', 'Auth\CommentController@createComment');
 });
 
 Route::get('videos', 'Auth\VideoController@getListVideos');
 Route::get('video/{id}', 'Auth\VideoController@getVideoInfo');
-Route::get('video/{id}/comments', 'Auth\VideoController@getListComments');
+Route::get('video/{id}/comments', 'Auth\CommentController@getListComments');
 
 Route::post('video/{id}/reation', 'Auth\ReactionController@createReaction');
 Route::get('video/{id}/reations', 'Auth\ReactionController@getListReaction');

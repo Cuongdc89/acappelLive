@@ -98,7 +98,7 @@ return [
                 'api/video/{id}/comments',
                 'api/video/{id}/reations',
                 'api/video/{id}/reation',
-                'api/reation/{id}'
+                'api/reation/{id}',
             ],
 
             /*
@@ -231,6 +231,8 @@ return [
             'exclude' => [
                 'api/logout',
                 'api/users',
+                'api/video/{id}/comment',
+                'api/video'
             ],
 
             /*
