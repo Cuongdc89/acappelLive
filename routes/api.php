@@ -41,4 +41,4 @@ Route::get('video/{id}/comments', 'Auth\CommentController@getListComments');
 Route::post('video/{id}/reation', 'Auth\ReactionController@createReaction');
 Route::get('video/{id}/reations', 'Auth\ReactionController@getListReaction');
 Route::delete('reation/{id}', 'Auth\ReactionController@destroyReaction');
-
+Route::post('video/{id}/view', 'Auth\ViewController@updateVideoViewCount');

@@ -151,7 +151,7 @@ Parameter | Type | Status | Description
 ```bash
 curl -X POST "http://34.87.16.238/api/register" \
     -H "Content-Type: application/json" \
-    -d '{"email":"a","password":"aut","password_confirmation":"ab","name":"esse"}'
+    -d '{"email":"sed","password":"veniam","password_confirmation":"aliquam","name":"exercitationem"}'
 
 ```
 
@@ -164,10 +164,10 @@ let headers = {
 }
 
 let body = {
-    "email": "a",
-    "password": "aut",
-    "password_confirmation": "ab",
-    "name": "esse"
+    "email": "sed",
+    "password": "veniam",
+    "password_confirmation": "aliquam",
+    "name": "exercitationem"
 }
 
 fetch(url, {
@@ -750,6 +750,7 @@ fetch(url, {
         "name": "video1",
         "artist": "video1 artist",
         "type": "1",
+        "view_count": 0,
         "thumbnail_url": "http:\/\/videos\/thumbnail\/video_1.png",
         "video_url": "http:\/\/videos\/url\/video1",
         "created_at": "2019-01-01 01:00:00",
@@ -784,7 +785,7 @@ Parameter | Type | Status | Description
 > Example request:
 
 ```bash
-curl -X GET -G "http://34.87.16.238/api/videos?page=1&q=abc&user_id=2" 
+curl -X GET -G "http://34.87.16.238/api/videos?page=1&q=abc&type=2&user_id=2" 
 ```
 
 ```javascript
@@ -793,6 +794,7 @@ const url = new URL("http://34.87.16.238/api/videos");
     let params = {
             "page": "1",
             "q": "abc",
+            "type": "2",
             "user_id": "2",
         };
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
@@ -816,119 +818,16 @@ fetch(url, {
 ```json
 {
     "status": true,
-    "videos": [
-        {
-            "id": 1,
-            "user_id": 2,
-            "title": "do.cao.cuong1@alliedtechbase.com",
-            "name": null,
-            "type": null,
-            "thumbnail_url": null,
-            "video_url": "http:\/\/127.0.0.1:8000\/uploads\/1572854724_download (7).jpeg",
-            "deleted_at": null,
-            "created_at": "2019-11-04 08:05:24",
-            "updated_at": "2019-11-04 08:05:24",
-            "user": {
-                "id": 2,
-                "name": "Cuongdc123",
-                "email": "do.cao.cuong1@alliedtechbase.com",
-                "created_at": "2019-10-23 04:15:26",
-                "updated_at": "2019-11-04 07:39:14",
-                "profile_picture_url": "http:\/\/127.0.0.1:8000\/avatars\/image_1572853154.png"
-            },
-            "reactions": [
-                {
-                    "type": 1,
-                    "count": 1,
-                    "reaction_status": true
-                },
-                {
-                    "type": 2,
-                    "count": 1,
-                    "reaction_status": true
-                },
-                {
-                    "type": 3,
-                    "count": 0,
-                    "reaction_status": false
-                },
-                {
-                    "type": 4,
-                    "count": 0,
-                    "reaction_status": false
-                },
-                {
-                    "type": 5,
-                    "count": 0,
-                    "reaction_status": false
-                }
-            ]
-        },
-        {
-            "id": 2,
-            "user_id": 2,
-            "title": "do.cao.cuong1@alliedtechbase.com",
-            "name": null,
-            "type": null,
-            "thumbnail_url": null,
-            "video_url": "http:\/\/127.0.0.1:8000\/uploads\/1572854727_download (7).jpeg",
-            "deleted_at": null,
-            "created_at": "2019-11-04 08:05:27",
-            "updated_at": "2019-11-04 08:05:27",
-            "user": {
-                "id": 2,
-                "name": "Cuongdc123",
-                "email": "do.cao.cuong1@alliedtechbase.com",
-                "created_at": "2019-10-23 04:15:26",
-                "updated_at": "2019-11-04 07:39:14",
-                "profile_picture_url": "http:\/\/127.0.0.1:8000\/avatars\/image_1572853154.png"
-            },
-            "reactions": [
-                {
-                    "type": 1,
-                    "count": 1,
-                    "reaction_status": true
-                },
-                {
-                    "type": 2,
-                    "count": 1,
-                    "reaction_status": true
-                },
-                {
-                    "type": 3,
-                    "count": 0,
-                    "reaction_status": false
-                },
-                {
-                    "type": 4,
-                    "count": 0,
-                    "reaction_status": false
-                },
-                {
-                    "type": 5,
-                    "count": 0,
-                    "reaction_status": false
-                }
-            ]
-        }
-    ],
     "meta_data": {
-        "total": 2,
+        "total": 0,
         "paging": {
             "current_page": 1,
-            "last_page": 1,
+            "last_page": 0,
             "per_page": 10,
             "from": 0,
-            "to": 2
+            "to": 0
         }
     }
-}
-```
-> Example response (500):
-
-```json
-{
-    "message": "Server Error"
 }
 ```
 
@@ -941,6 +840,7 @@ Parameter | Status | Description
 --------- | ------- | ------- | -----------
     page |  optional  | int option this field use to filter what page client want to get.( default 10 video for 1 page):
     q |  optional  | string option this field use to filter tilte of video.
+    type |  optional  | int option this field use to filter type of video.
     user_id |  optional  | int option this field use to filter list video upload by an user.
 
 <!-- END_163aba6e8558a53b9c4ee0dfa18a20e9 -->
@@ -981,7 +881,8 @@ fetch(url, {
         "user_id": 2,
         "title": "do.cao.cuong1@alliedtechbase.com",
         "name": null,
-        "type": null,
+        "type": 1,
+        "view_count": 100,
         "thumbnail_url": null,
         "video_url": "http:\/\/127.0.0.1:8000\/uploads\/1572854724_download (7).jpeg",
         "deleted_at": null,
@@ -1038,5 +939,45 @@ fetch(url, {
 
 
 <!-- END_28a4b4bf1d94d0f56e1c50ed3d82ae2d -->
+
+<!-- START_c86f4b1d71b40043ed48fcedfd118f13 -->
+## API for create a view for a video
+
+> Example request:
+
+```bash
+curl -X POST "http://34.87.16.238/api/video/1/view" 
+```
+
+```javascript
+const url = new URL("http://34.87.16.238/api/video/1/view");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "status": true
+}
+```
+
+### HTTP Request
+`POST api/video/{id}/view`
+
+
+<!-- END_c86f4b1d71b40043ed48fcedfd118f13 -->
 
 

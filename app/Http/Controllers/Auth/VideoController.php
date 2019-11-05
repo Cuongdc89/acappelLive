@@ -40,6 +40,7 @@ class VideoController extends Controller
      * "name" : "video1",
      * "artist": "video1 artist",
      * "type": "1",
+     * "view_count": 0,
      *  "thumbnail_url": "http://videos/thumbnail/video_1.png",
      * "video_url": "http://videos/url/video1",
      * "created_at": "2019-01-01 01:00:00",
@@ -118,6 +119,7 @@ class VideoController extends Controller
      * API for get list videos
      * @queryParam page int option this field use to filter what page client want to get.( default 10 video for 1 page): Example: 1
      * @queryParam q string option this field use to filter tilte of video. Example: abc
+     * @queryParam type int option this field use to filter type of video. Example: 2
      * @queryParam user_id int option this field use to filter list video upload by an user. Example: 2
      * @response {
      *"status": true,
@@ -127,7 +129,8 @@ class VideoController extends Controller
      *"user_id": 2,
      *"title": "do.cao.cuong1@alliedtechbase.com",
      *"name": null,
-     *"type": null,
+     *"type": 2,
+     *"view_count": 100,
      *"thumbnail_url": null,
      *"video_url": "http://127.0.0.1:8000/uploads/1572854724_download (7).jpeg",
      *"deleted_at": null,
@@ -154,7 +157,8 @@ class VideoController extends Controller
      *"user_id": 2,
      *"title": "do.cao.cuong1@alliedtechbase.com",
      *"name": null,
-     *"type": null,
+     *"type": 2,
+     *"view_count": 100,
      *"thumbnail_url": null,
      *"video_url": "http://127.0.0.1:8000/uploads/1572854727_download (7).jpeg",
      *"deleted_at": null,
@@ -196,6 +200,10 @@ class VideoController extends Controller
         
         if (isset($input['user_id']) && $input['user_id'] > 0) {
             $query->where('user_id', $input['user_id']);
+        }
+
+        if (isset($input['q'])) {
+            $query->where('videos.title', 'LIKE',  "%{$input['q']}%");
         }
 
         $totalVideos = $query->count();
@@ -251,7 +259,8 @@ class VideoController extends Controller
      * "user_id": 2,
      * "title": "do.cao.cuong1@alliedtechbase.com",
      * "name": null,
-     * "type": null,
+     * "type": 1,
+     * "view_count": 100,
      * "thumbnail_url": null,
      * "video_url": "http://127.0.0.1:8000/uploads/1572854724_download (7).jpeg",
      * "deleted_at": null,

@@ -98,6 +98,7 @@ return [
                 'api/video/{id}/comments',
                 'api/video/{id}/reations',
                 'api/video/{id}/reation',
+                'api/video/{id}/view',
                 'api/reation/{id}',
             ],
 
