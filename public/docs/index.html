@@ -172,7 +172,7 @@ fetch(url, {
 </blockquote>
 <pre><code class="language-bash">curl -X POST "http://34.87.16.238/api/register" \
     -H "Content-Type: application/json" \
-    -d '{"email":"sed","password":"veniam","password_confirmation":"aliquam","name":"exercitationem"}'
+    -d '{"email":"rerum","password":"optio","password_confirmation":"ullam","name":"ipsam"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL("http://34.87.16.238/api/register");
 
@@ -182,10 +182,10 @@ let headers = {
 }
 
 let body = {
-    "email": "sed",
-    "password": "veniam",
-    "password_confirmation": "aliquam",
-    "name": "exercitationem"
+    "email": "rerum",
+    "password": "optio",
+    "password_confirmation": "ullam",
+    "name": "ipsam"
 }
 
 fetch(url, {
@@ -584,6 +584,34 @@ fetch(url, {
 <h3>HTTP Request</h3>
 <p><code>DELETE api/reation/{id}</code></p>
 <!-- END_b46af183f877acfaf4352aa6b9461427 -->
+<!-- START_c86f4b1d71b40043ed48fcedfd118f13 -->
+<h2>API for create a view for a video</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://34.87.16.238/api/video/1/view" </code></pre>
+<pre><code class="language-javascript">const url = new URL("http://34.87.16.238/api/video/1/view");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": true
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/video/{id}/view</code></p>
+<!-- END_c86f4b1d71b40043ed48fcedfd118f13 -->
 <h1>User Information</h1>
 <!-- START_fc1e4f6a697e3c48257de845299b71d5 -->
 <h2>API for get user information</h2>
@@ -962,34 +990,6 @@ fetch(url, {
 <h3>HTTP Request</h3>
 <p><code>GET api/video/{id}</code></p>
 <!-- END_28a4b4bf1d94d0f56e1c50ed3d82ae2d -->
-<!-- START_c86f4b1d71b40043ed48fcedfd118f13 -->
-<h2>API for create a view for a video</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X POST "http://34.87.16.238/api/video/1/view" </code></pre>
-<pre><code class="language-javascript">const url = new URL("http://34.87.16.238/api/video/1/view");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "POST",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (200):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "status": true
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>POST api/video/{id}/view</code></p>
-<!-- END_c86f4b1d71b40043ed48fcedfd118f13 -->
       </div>
       <div class="dark-box">
                         <div class="lang-selector">

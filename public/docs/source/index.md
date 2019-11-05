@@ -151,7 +151,7 @@ Parameter | Type | Status | Description
 ```bash
 curl -X POST "http://34.87.16.238/api/register" \
     -H "Content-Type: application/json" \
-    -d '{"email":"sed","password":"veniam","password_confirmation":"aliquam","name":"exercitationem"}'
+    -d '{"email":"rerum","password":"optio","password_confirmation":"ullam","name":"ipsam"}'
 
 ```
 
@@ -164,10 +164,10 @@ let headers = {
 }
 
 let body = {
-    "email": "sed",
-    "password": "veniam",
-    "password_confirmation": "aliquam",
-    "name": "exercitationem"
+    "email": "rerum",
+    "password": "optio",
+    "password_confirmation": "ullam",
+    "name": "ipsam"
 }
 
 fetch(url, {
@@ -573,6 +573,46 @@ fetch(url, {
 
 <!-- END_b46af183f877acfaf4352aa6b9461427 -->
 
+<!-- START_c86f4b1d71b40043ed48fcedfd118f13 -->
+## API for create a view for a video
+
+> Example request:
+
+```bash
+curl -X POST "http://34.87.16.238/api/video/1/view" 
+```
+
+```javascript
+const url = new URL("http://34.87.16.238/api/video/1/view");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "status": true
+}
+```
+
+### HTTP Request
+`POST api/video/{id}/view`
+
+
+<!-- END_c86f4b1d71b40043ed48fcedfd118f13 -->
+
 #User Information
 
 
@@ -939,45 +979,5 @@ fetch(url, {
 
 
 <!-- END_28a4b4bf1d94d0f56e1c50ed3d82ae2d -->
-
-<!-- START_c86f4b1d71b40043ed48fcedfd118f13 -->
-## API for create a view for a video
-
-> Example request:
-
-```bash
-curl -X POST "http://34.87.16.238/api/video/1/view" 
-```
-
-```javascript
-const url = new URL("http://34.87.16.238/api/video/1/view");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "POST",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-> Example response (200):
-
-```json
-{
-    "status": true
-}
-```
-
-### HTTP Request
-`POST api/video/{id}/view`
-
-
-<!-- END_c86f4b1d71b40043ed48fcedfd118f13 -->
 
 

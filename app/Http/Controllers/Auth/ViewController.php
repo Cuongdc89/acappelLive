@@ -12,10 +12,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Video;
 use Illuminate\Support\Facades\Request;
 
+/**
+ * Class ViewController
+ * @package App\Http\Controllers\Auth
+ */
 class ViewController extends Controller
 {
     /**
-     * @group Videos
+     * @group Reaction
      * API for create a view for a video
      * @response {
      *  "status":  true

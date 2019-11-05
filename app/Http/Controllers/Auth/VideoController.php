@@ -249,6 +249,8 @@ class VideoController extends Controller
 
         return response()->json($data, 200);
     }
+
+    
     /**
      * @group Videos
      * API for get video detail.
