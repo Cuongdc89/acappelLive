@@ -9,6 +9,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\AnonymousUser;
+use App\Models\Reaction;
 use App\Models\Video;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -138,7 +140,14 @@ class VideoController extends Controller
      *"created_at": "2019-10-23 04:15:26",
      *"updated_at": "2019-11-04 07:39:14",
      *"profile_picture_url": "http://127.0.0.1:8000/avatars/image_1572853154.png"
-     *}
+     *},
+     * "reactions":[
+     * {"type": 1, "count": 1, "reaction_status": true},
+     * {"type": 2, "count": 1, "reaction_status": true},
+     * {"type": 3, "count": 0, "reaction_status": false},
+     * {"type": 4, "count": 0, "reaction_status": false},
+     * {"type": 5, "count": 0, "reaction_status": false}
+     * ]
      *},
      *{
      *"id": 2,
@@ -158,7 +167,14 @@ class VideoController extends Controller
      *"created_at": "2019-10-23 04:15:26",
      *"updated_at": "2019-11-04 07:39:14",
      *"profile_picture_url": "http://127.0.0.1:8000/avatars/image_1572853154.png"
-     *}
+     *},
+     * "reactions":[
+     * {"type": 1, "count": 1, "reaction_status": true},
+     * {"type": 2, "count": 1, "reaction_status": true},
+     * {"type": 3, "count": 0, "reaction_status": false},
+     * {"type": 4, "count": 0, "reaction_status": false},
+     * {"type": 5, "count": 0, "reaction_status": false}
+     * ]
      *}
      *],
      *"meta_data": {
@@ -208,6 +224,7 @@ class VideoController extends Controller
 
         foreach ($videos as $video) {
             $video->user = User::where('id', $video->user_id)->get()->first();
+            $video->reactions = $this->getListReactionCount($video->id);
             $data['videos'][] = $video;
         }
 
@@ -247,7 +264,14 @@ class VideoController extends Controller
      * "created_at": "2019-10-23 04:01:24",
      * "updated_at": "2019-10-23 04:01:24",
      * "profile_picture_url": null
-     * }
+     * },
+     * "reactions":[
+     * {"type": 1, "count": 1, "reaction_status": true},
+     * {"type": 2, "count": 1, "reaction_status": true},
+     * {"type": 3, "count": 0, "reaction_status": false},
+     * {"type": 4, "count": 0, "reaction_status": false},
+     * {"type": 5, "count": 0, "reaction_status": false}
+     * ]
      * }
      * }
      */
@@ -256,6 +280,7 @@ class VideoController extends Controller
         $video = Video::find($id)->first();
         if ($video) {
             $video->user = User::find($video->user_id)->first();
+            $video->reactions = $this->getListReactionCount($video->id);
         }
 
         $data["status"] = true;
@@ -266,5 +291,93 @@ class VideoController extends Controller
 
     protected function  getUrl($filePath) {
         return env('APP_URL') . '/' . $filePath ;
+    }
+
+
+    /**
+     * @param $videoId
+     * @return array
+     */
+    private function getListReactionCount($videoId)
+    {
+        $authType = Reaction::ANONYMOUS_USER;
+        if (Auth::user()) {
+            $authType = Reaction::AUTH_USER;
+            $userId = Auth::user()['id'];
+        } else {
+            $userId = $this->getAnonymousUserId();
+        }
+
+        $countReed = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_REED)->count();
+        $countHar = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_HARMONIZED)->count();
+        $countEx = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_EXPRESSIVE)->count();
+        $countRH = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_RHYTHM)->count();
+        $countCA = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_CARE)->count();
+
+        return $data = array(
+            [
+                "type"  => Reaction::TYPE_REED,
+                "count" => $countReed,
+                "reaction_status" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_REED, $authType),
+            ],
+            [
+                "type"  => Reaction::TYPE_HARMONIZED,
+                "count" => $countHar,
+                "reaction_status" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_HARMONIZED, $authType),
+            ],
+            [
+                "type"  => Reaction::TYPE_EXPRESSIVE,
+                "count" => $countEx,
+                "reaction_status" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_EXPRESSIVE, $authType),
+            ],
+            [
+                "type"  => Reaction::TYPE_RHYTHM,
+                "count" => $countRH,
+                "reaction_status" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_RHYTHM, $authType),
+            ],
+            [
+                "type"  => Reaction::TYPE_CARE,
+                "count" => $countCA,
+                "reaction_status" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_CARE, $authType),
+            ]
+        );
+    }
+
+    /**
+     * @param $videoId
+     * @param $userId
+     * @param $type
+     * @param $authType
+     * @return bool
+     */
+    private function getReactionStatus($videoId, $userId, $type, $authType) {
+
+        $reaction = Reaction::where('video_id', $videoId)->where('type', $type)
+            ->where('user_id', $userId)->where('auth_type', $authType)->first();
+        if ($reaction) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getAnonymousUserId() {
+        $agent  = $_SERVER['HTTP_USER_AGENT'];
+        $ip     = $_SERVER['REMOTE_ADDR'];
+        $hashId = md5($agent . $ip);
+
+        $au = AnonymousUser::where('hash_id', $hashId)->first();
+
+        if (!$au) {
+            $au = new AnonymousUser();
+            $au->hash_id = $hashId;
+            $au->save();
+        }
+
+        return $au->id;
+
     }
 }

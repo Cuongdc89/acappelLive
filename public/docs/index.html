@@ -172,7 +172,7 @@ fetch(url, {
 </blockquote>
 <pre><code class="language-bash">curl -X POST "http://34.87.16.238/api/register" \
     -H "Content-Type: application/json" \
-    -d '{"email":"sit","password":"eos","password_confirmation":"sunt","name":"est"}'
+    -d '{"email":"occaecati","password":"eius","password_confirmation":"unde","name":"nemo"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL("http://34.87.16.238/api/register");
 
@@ -182,10 +182,10 @@ let headers = {
 }
 
 let body = {
-    "email": "sit",
-    "password": "eos",
-    "password_confirmation": "sunt",
-    "name": "est"
+    "email": "occaecati",
+    "password": "eius",
+    "password_confirmation": "unde",
+    "name": "nemo"
 }
 
 fetch(url, {
@@ -851,7 +851,34 @@ fetch(url, {
                 "created_at": "2019-10-23 04:15:26",
                 "updated_at": "2019-11-04 07:39:14",
                 "profile_picture_url": "http:\/\/127.0.0.1:8000\/avatars\/image_1572853154.png"
-            }
+            },
+            "reactions": [
+                {
+                    "type": 1,
+                    "count": 1,
+                    "reaction_status": true
+                },
+                {
+                    "type": 2,
+                    "count": 1,
+                    "reaction_status": true
+                },
+                {
+                    "type": 3,
+                    "count": 0,
+                    "reaction_status": false
+                },
+                {
+                    "type": 4,
+                    "count": 0,
+                    "reaction_status": false
+                },
+                {
+                    "type": 5,
+                    "count": 0,
+                    "reaction_status": false
+                }
+            ]
         },
         {
             "id": 2,
@@ -871,19 +898,52 @@ fetch(url, {
                 "created_at": "2019-10-23 04:15:26",
                 "updated_at": "2019-11-04 07:39:14",
                 "profile_picture_url": "http:\/\/127.0.0.1:8000\/avatars\/image_1572853154.png"
-            }
+            },
+            "reactions": [
+                {
+                    "type": 1,
+                    "count": 1,
+                    "reaction_status": true
+                },
+                {
+                    "type": 2,
+                    "count": 1,
+                    "reaction_status": true
+                },
+                {
+                    "type": 3,
+                    "count": 0,
+                    "reaction_status": false
+                },
+                {
+                    "type": 4,
+                    "count": 0,
+                    "reaction_status": false
+                },
+                {
+                    "type": 5,
+                    "count": 0,
+                    "reaction_status": false
+                }
+            ]
         }
     ],
     "meta_data": {
         "total": 2,
         "paging": {
-            "current_page": "1",
+            "current_page": 1,
             "last_page": 1,
             "per_page": 10,
             "from": 0,
             "to": 2
         }
     }
+}</code></pre>
+<blockquote>
+<p>Example response (500):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Server Error"
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/videos</code></p>
@@ -935,30 +995,10 @@ fetch(url, {
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
 <blockquote>
-<p>Example response (200):</p>
+<p>Example response (500):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "status": true,
-    "video": {
-        "id": 1,
-        "user_id": 2,
-        "title": "do.cao.cuong1@alliedtechbase.com",
-        "name": null,
-        "type": null,
-        "thumbnail_url": null,
-        "video_url": "http:\/\/127.0.0.1:8000\/uploads\/1572854724_download (7).jpeg",
-        "deleted_at": null,
-        "created_at": "2019-11-04 08:05:24",
-        "updated_at": "2019-11-04 08:05:24",
-        "user": {
-            "id": 1,
-            "name": "Cuôngdc",
-            "email": "do.cao.cuong@alliedtechbase.com",
-            "created_at": "2019-10-23 04:01:24",
-            "updated_at": "2019-10-23 04:01:24",
-            "profile_picture_url": null
-        }
-    }
+    "message": "Server Error"
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/video/{id}</code></p>
