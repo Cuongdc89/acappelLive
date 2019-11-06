@@ -121,7 +121,6 @@ class VideoController extends Controller
             $data["status"] = true;
             return response()->json($data, 200);
         } catch (\Exception $e) {
-            die($e->getMessage());
             $data["status"] = false;
             return response()->json($data, 200);
         }
