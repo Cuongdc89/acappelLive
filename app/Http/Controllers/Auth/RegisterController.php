@@ -43,16 +43,16 @@ class RegisterController extends Controller
 
     /**
      * @group Autentication
-     * @bodyParam email email required This param must validate email format.
-     * @bodyParam password string required The password must has min 8 chars.
-     * @bodyParam password_confirmation string required The password must has min 8 chars.
-     * @bodyParam name string required This param will be use to display on user info and comment of user.
+     * @bodyParam email email required This param must validate email format. Example: cuongdc@gmail.com
+     * @bodyParam password string required The password must has min 8 chars. Example: 12345678@a
+     * @bodyParam password_confirmation string required The password must has min 8 chars. Example: 12345678@a
+     * @bodyParam name string required This param will be use to display on user info and comment of user. Example: Cuongdc
      * @response {
      *  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjVlOGMyOGM1ZTZ",
      *  "user": {
      * "id": "2",
      * "name": "Cuongdc",
-     * "email": "cuongdc316@gmail.com",
+     * "email": "cuongdc@gmail.com",
      * "created_at": "2019-10-23 04:15:26",
      * "updated_at": "2019-10-23 04:15:26"
      * },
