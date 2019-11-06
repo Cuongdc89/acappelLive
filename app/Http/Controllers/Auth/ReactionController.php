@@ -141,7 +141,7 @@ class ReactionController extends Controller
             $userId = $this->getAnonymousUserId();
         }
 
-        Reaction::where('id', $id)->where('user_id', $userId)-where('auth_type', $authType)->delete();
+        Reaction::where('id', $id)->where('user_id', $userId)->where('auth_type', $authType)->delete();
 
         $data['status'] = true;
         return response()->json($data, 200);
