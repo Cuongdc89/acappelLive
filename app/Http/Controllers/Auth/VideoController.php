@@ -79,6 +79,18 @@ class VideoController extends Controller
             }
 
             $file = Request::file('file');
+            $mime = $file->getMimeType();
+
+            if (!strstr($mime, "video/")){
+                $data["status"] = false;
+                $data["errors"] = array(
+                    "code" => -2,
+                    "msg" => "file not correct video type"
+                );
+
+                return response()->json($data, 200);
+            }
+
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->move('uploads', $fileName);
 
