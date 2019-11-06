@@ -373,21 +373,29 @@ class VideoController extends Controller
      * @param $authType
      * @return bool
      */
-    private function getReactionStatus($videoId, $userId, $type, $authType) {
-
+    private function getReactionStatus($videoId, $userId, $type, $authType)
+    {
         $reaction = Reaction::where('video_id', $videoId)->where('type', $type)
             ->where('user_id', $userId)->where('auth_type', $authType)->first();
+
         if ($reaction) {
-            return true;
+            $data["status"] = true;
+            $data["reaction_id"] = $reaction->id;
+
+            return $data;
         }
 
-        return false;
+        $data["status"] = false;
+        $data["reaction_id"] = -1;
+
+        return $data;
     }
 
     /**
      * @return mixed
      */
-    private function getAnonymousUserId() {
+    private function getAnonymousUserId()
+    {
         $agent  = $_SERVER['HTTP_USER_AGENT'];
         $ip     = $_SERVER['REMOTE_ADDR'];
         $hashId = md5($agent . $ip);

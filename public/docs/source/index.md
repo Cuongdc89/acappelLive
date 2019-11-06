@@ -433,7 +433,8 @@ fetch(url, {
 
 ```json
 {
-    "status": true
+    "status": true,
+    "reaction_id": 1
 }
 ```
 > Example response (404):
@@ -494,27 +495,42 @@ fetch(url, {
         {
             "type": "1",
             "count": "4",
-            "reaction_status": true
+            "user_reaction": {
+                "status": false,
+                "reaction_id": -1
+            }
         },
         {
             "type": "2",
             "count": "4",
-            "reaction_status": true
+            "user_reaction": {
+                "status": true,
+                "reaction_id": 1
+            }
         },
         {
             "type": "3",
             "count": "20",
-            "reaction_status": true
+            "user_reaction": {
+                "status": true,
+                "reaction_id": 3
+            }
         },
         {
             "type": "4",
             "count": "10",
-            "reaction_status": true
+            "user_reaction": {
+                "status": true,
+                "reaction_id": 5
+            }
         },
         {
             "type": "5",
             "count": "100",
-            "reaction_status": true
+            "user_reaction": {
+                "status": true,
+                "reaction_id": 7
+            }
         }
     ]
 }

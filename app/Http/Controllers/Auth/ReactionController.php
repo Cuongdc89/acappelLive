@@ -19,7 +19,8 @@ class ReactionController extends Controller
      * API for create a reaction for a video
      * @bodyParam type int required The type of reaction. (must be in array [1,2,3,4, 5]. 1: REED, 2: HARMONIZED, 3: EXPRESSIVE, 4: RHYTHM, 5: CARE (消さないで！). Example: 1
      * @response {
-     * "status": true
+     * "status": true,
+     * "reaction_id": 1
      * }
      * @response 404 {
      * "status": false,
@@ -119,6 +120,7 @@ class ReactionController extends Controller
         $reaction->save();
 
         $data['status'] = true;
+        $data['reaction_id'] = $reaction->id;
         return response()->json($data, 200);
 
     }
@@ -157,27 +159,27 @@ class ReactionController extends Controller
      *  {
      *  "type" : "1",
      *  "count": "4",
-     *  "reaction_status": true
+     *  "user_reaction": {"status":false, "reaction_id": -1}
      * },
      * {
      * "type" : "2",
      *  "count": "4",
-     *  "reaction_status": true
+     *  "user_reaction": {"status":true, "reaction_id": 1}
      * },
      *  {
      *  "type" : "3",
      *  "count": "20",
-     *  "reaction_status": true
+     *  "user_reaction": {"status":true, "reaction_id": 3}
      * },
      * {
      * "type" : "4",
      *  "count": "10",
-     *  "reaction_status": true
+     *  "user_reaction": {"status":true, "reaction_id": 5}
      * }
      * , {
      *  "type" : "5",
      *  "count": "100",
-     *  "reaction_status": true
+     *  "user_reaction": {"status":true, "reaction_id": 7}
      * }
      * ]
      * }
@@ -201,8 +203,9 @@ class ReactionController extends Controller
 
         return response()->json($data, 200);
     }
-    
-    private function getAnonymousUserId() {
+
+    private function getAnonymousUserId()
+    {
         $agent  = $_SERVER['HTTP_USER_AGENT'];
         $ip     = $_SERVER['REMOTE_ADDR'];
         $hashId = md5($agent . $ip);
@@ -216,7 +219,7 @@ class ReactionController extends Controller
         }
 
         return $au->id;
-        
+
     }
 
     /**
@@ -243,27 +246,27 @@ class ReactionController extends Controller
             [
                 "type"  => Reaction::TYPE_REED,
                 "count" => $countReed,
-                "reaction_status" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_REED, $authType),
+                "user_reaction" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_REED, $authType),
             ],
             [
                 "type"  => Reaction::TYPE_HARMONIZED,
                 "count" => $countHar,
-                "reaction_status" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_HARMONIZED, $authType),
+                "user_reaction" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_HARMONIZED, $authType),
             ],
             [
                 "type"  => Reaction::TYPE_EXPRESSIVE,
                 "count" => $countEx,
-                "reaction_status" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_EXPRESSIVE, $authType),
+                "user_reaction" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_EXPRESSIVE, $authType),
             ],
             [
                 "type"  => Reaction::TYPE_RHYTHM,
                 "count" => $countRH,
-                "reaction_status" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_RHYTHM, $authType),
+                "user_reaction" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_RHYTHM, $authType),
             ],
             [
                 "type"  => Reaction::TYPE_CARE,
                 "count" => $countCA,
-                "reaction_status" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_CARE, $authType),
+                "user_reaction" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_CARE, $authType),
             ]
         );
     }
@@ -275,14 +278,21 @@ class ReactionController extends Controller
      * @param $authType
      * @return bool
      */
-    private function getReactionStatus($videoId, $userId, $type, $authType) {
+    private function getReactionStatus($videoId, $userId, $type, $authType)
+    {
 
         $reaction = Reaction::where('video_id', $videoId)->where('type', $type)
             ->where('user_id', $userId)->where('auth_type', $authType)->first();
         if ($reaction) {
-            return true;
+            $data["status"] = true;
+            $data["reaction_id"] = $reaction->id;
+
+            return $data;
         }
 
-        return false;
+        $data["status"] = false;
+        $data["reaction_id"] = -1;
+
+        return $data;
     }
 }

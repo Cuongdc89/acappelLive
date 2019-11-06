@@ -403,12 +403,6 @@ fetch(url, {
         }
     }
 }</code></pre>
-<blockquote>
-<p>Example response (500):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "Server Error"
-}</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/video/{id}/comments</code></p>
 <h4>Query Parameters</h4>
@@ -461,7 +455,8 @@ fetch(url, {
 <p>Example response (200):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "status": true
+    "status": true,
+    "reaction_id": 1
 }</code></pre>
 <blockquote>
 <p>Example response (404):</p>
@@ -523,27 +518,42 @@ fetch(url, {
         {
             "type": "1",
             "count": "4",
-            "reaction_status": true
+            "user_reaction": {
+                "status": false,
+                "reaction_id": -1
+            }
         },
         {
             "type": "2",
             "count": "4",
-            "reaction_status": true
+            "user_reaction": {
+                "status": true,
+                "reaction_id": 1
+            }
         },
         {
             "type": "3",
             "count": "20",
-            "reaction_status": true
+            "user_reaction": {
+                "status": true,
+                "reaction_id": 3
+            }
         },
         {
             "type": "4",
             "count": "10",
-            "reaction_status": true
+            "user_reaction": {
+                "status": true,
+                "reaction_id": 5
+            }
         },
         {
             "type": "5",
             "count": "100",
-            "reaction_status": true
+            "user_reaction": {
+                "status": true,
+                "reaction_id": 7
+            }
         }
     ]
 }</code></pre>
@@ -860,19 +870,216 @@ fetch(url, {
 <blockquote>
 <p>Example response (200):</p>
 </blockquote>
-<pre><code class="language-json">{
+<pre><code class="language-json">
+    {
     "status": true,
+    "videos": [
+        {
+            "id": 1,
+            "user_id": 2,
+            "title": "do.cao.cuong1@alliedtechbase.com",
+            "name": null,
+            "type": null,
+            "artist": null,
+            "view_count": 4,
+            "thumbnail_url": null,
+            "video_url": "http://127.0.0.1:8000/uploads/1572854724_download (7).jpeg",
+            "deleted_at": null,
+            "created_at": "2019-11-04 08:05:24",
+            "updated_at": "2019-11-05 06:48:10",
+            "user": {
+                "id": 2,
+                "name": "Cuongdc123",
+                "email": "do.cao.cuong1@alliedtechbase.com",
+                "created_at": "2019-10-23 04:15:26",
+                "updated_at": "2019-11-04 07:39:14",
+                "profile_picture_url": "http://127.0.0.1:8000/avatars/image_1572853154.png"
+            },
+            "reactions": [
+                {
+                    "type": 1,
+                    "count": 1,
+                    "user_reaction": {
+                        "status": true,
+                        "reaction_id": 1
+                    }
+                },
+                {
+                    "type": 2,
+                    "count": 1,
+                    "user_reaction": {
+                        "status": true,
+                        "reaction_id": 2
+                    }
+                },
+                {
+                    "type": 3,
+                    "count": 0,
+                    "user_reaction": {
+                        "status": false,
+                        "reaction_id": -1
+                    }
+                },
+                {
+                    "type": 4,
+                    "count": 0,
+                    "user_reaction": {
+                        "status": false,
+                        "reaction_id": -1
+                    }
+                },
+                {
+                    "type": 5,
+                    "count": 0,
+                    "user_reaction": {
+                        "status": false,
+                        "reaction_id": -1
+                    }
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "user_id": 2,
+            "title": "do.cao.cuong1@alliedtechbase.com",
+            "name": null,
+            "type": null,
+            "artist": null,
+            "view_count": 0,
+            "thumbnail_url": null,
+            "video_url": "http://127.0.0.1:8000/uploads/1572854727_download (7).jpeg",
+            "deleted_at": null,
+            "created_at": "2019-11-04 08:05:27",
+            "updated_at": "2019-11-04 08:05:27",
+            "user": {
+                "id": 2,
+                "name": "Cuongdc123",
+                "email": "do.cao.cuong1@alliedtechbase.com",
+                "created_at": "2019-10-23 04:15:26",
+                "updated_at": "2019-11-04 07:39:14",
+                "profile_picture_url": "http://127.0.0.1:8000/avatars/image_1572853154.png"
+            },
+            "reactions": [
+                {
+                    "type": 1,
+                    "count": 0,
+                    "user_reaction": {
+                        "status": false,
+                        "reaction_id": -1
+                    }
+                },
+                {
+                    "type": 2,
+                    "count": 0,
+                    "user_reaction": {
+                        "status": false,
+                        "reaction_id": -1
+                    }
+                },
+                {
+                    "type": 3,
+                    "count": 0,
+                    "user_reaction": {
+                        "status": false,
+                        "reaction_id": -1
+                    }
+                },
+                {
+                    "type": 4,
+                    "count": 0,
+                    "user_reaction": {
+                        "status": false,
+                        "reaction_id": -1
+                    }
+                },
+                {
+                    "type": 5,
+                    "count": 0,
+                    "user_reaction": {
+                        "status": false,
+                        "reaction_id": -1
+                    }
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "user_id": 2,
+            "title": "Video 1",
+            "name": "cuongdc upload",
+            "type": 1,
+            "artist": "new video upload",
+            "view_count": 0,
+            "thumbnail_url": null,
+            "video_url": "http://34.87.16.238/uploads/1573021935_y2mate.com - how_to_download_a_facebook_video_as_an_mp4_file_new_u9pQxMI-jng_360p.mp4",
+            "deleted_at": null,
+            "created_at": "2019-11-06 06:32:15",
+            "updated_at": "2019-11-06 06:32:15",
+            "user": {
+                "id": 2,
+                "name": "Cuongdc123",
+                "email": "do.cao.cuong1@alliedtechbase.com",
+                "created_at": "2019-10-23 04:15:26",
+                "updated_at": "2019-11-04 07:39:14",
+                "profile_picture_url": "http://127.0.0.1:8000/avatars/image_1572853154.png"
+            },
+            "reactions": [
+                {
+                    "type": 1,
+                    "count": 0,
+                    "user_reaction": {
+                        "status": false,
+                        "reaction_id": -1
+                    }
+                },
+                {
+                    "type": 2,
+                    "count": 0,
+                    "user_reaction": {
+                        "status": false,
+                        "reaction_id": -1
+                    }
+                },
+                {
+                    "type": 3,
+                    "count": 0,
+                    "user_reaction": {
+                        "status": false,
+                        "reaction_id": -1
+                    }
+                },
+                {
+                    "type": 4,
+                    "count": 0,
+                    "user_reaction": {
+                        "status": false,
+                        "reaction_id": -1
+                    }
+                },
+                {
+                    "type": 5,
+                    "count": 0,
+                    "user_reaction": {
+                        "status": false,
+                        "reaction_id": -1
+                    }
+                }
+            ]
+        }
+    ],
     "meta_data": {
-        "total": 0,
+        "total": 3,
         "paging": {
             "current_page": 1,
-            "last_page": 0,
+            "last_page": 1,
             "per_page": 10,
             "from": 0,
-            "to": 0
+            "to": 3
         }
     }
-}</code></pre>
+}
+
+</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/videos</code></p>
 <h4>Query Parameters</h4>
