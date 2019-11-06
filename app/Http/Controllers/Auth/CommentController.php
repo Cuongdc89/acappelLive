@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Request;
  */
 class CommentController extends Controller
 {
+    const DEFAULT_PAGE_SIZE = 10;
     /**
      * @group Comments
      * API for get list comments of a video
