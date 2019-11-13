@@ -141,7 +141,7 @@ class ReactionController extends Controller
     /**
      * @group Reaction
      * API for destroy a reaction.
-     * @bodyParam device_id string required The  id of device. Example: 1
+     * @queryParam device_id required The  id of device. Example: 1
      * @response {
      * "status": true
      * }
@@ -180,7 +180,7 @@ class ReactionController extends Controller
     /**
      * @group Reaction
      * API for get list reaction of a video
-     * @bodyParam device_id string required The  id of device. Example: 1
+     * @queryParam device_id required The  id of device. Example: 1
      * @response {
      * "status": true,
      * "reactions" : [

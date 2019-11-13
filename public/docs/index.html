@@ -523,25 +523,22 @@ fetch(url, {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X GET -G "http://34.87.16.238/api/video/1/reations" \
-    -H "Content-Type: application/json" \
-    -d '{"device_id":"1"}'
-</code></pre>
+<pre><code class="language-bash">curl -X GET -G "http://34.87.16.238/api/video/1/reations?device_id=1" </code></pre>
 <pre><code class="language-javascript">const url = new URL("http://34.87.16.238/api/video/1/reations");
 
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-}
+    let params = {
+            "device_id": "1",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
 
-let body = {
-    "device_id": "1"
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
 fetch(url, {
     method: "GET",
     headers: headers,
-    body: body
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
@@ -549,20 +546,63 @@ fetch(url, {
 <p>Example response (200):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "status": false,
-    "errors": {
-        "code": -100,
-        "msg": "device_id of action is required"
-    }
+    "status": true,
+    "reactions": [
+        {
+            "type": "1",
+            "count": "4",
+            "user_reaction": {
+                "status": false,
+                "reaction_id": -1
+            }
+        },
+        {
+            "type": "2",
+            "count": "4",
+            "user_reaction": {
+                "status": true,
+                "reaction_id": 1
+            }
+        },
+        {
+            "type": "3",
+            "count": "20",
+            "user_reaction": {
+                "status": true,
+                "reaction_id": 3
+            }
+        },
+        {
+            "type": "4",
+            "count": "10",
+            "user_reaction": {
+                "status": true,
+                "reaction_id": 5
+            }
+        },
+        {
+            "type": "5",
+            "count": "100",
+            "user_reaction": {
+                "status": true,
+                "reaction_id": 7
+            }
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response (500):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Server Error"
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/video/{id}/reations</code></p>
-<h4>Body Parameters</h4>
+<h4>Query Parameters</h4>
 <table>
 <thead>
 <tr>
 <th>Parameter</th>
-<th>Type</th>
 <th>Status</th>
 <th>Description</th>
 </tr>
@@ -570,7 +610,6 @@ fetch(url, {
 <tbody>
 <tr>
 <td>device_id</td>
-<td>string</td>
 <td>required</td>
 <td>The  id of device.</td>
 </tr>
@@ -582,25 +621,22 @@ fetch(url, {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X DELETE "http://34.87.16.238/api/reation/1" \
-    -H "Content-Type: application/json" \
-    -d '{"device_id":"1"}'
-</code></pre>
+<pre><code class="language-bash">curl -X DELETE "http://34.87.16.238/api/reation/1?device_id=1" </code></pre>
 <pre><code class="language-javascript">const url = new URL("http://34.87.16.238/api/reation/1");
 
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-}
+    let params = {
+            "device_id": "1",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
 
-let body = {
-    "device_id": "1"
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
 fetch(url, {
     method: "DELETE",
     headers: headers,
-    body: body
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
@@ -612,12 +648,11 @@ fetch(url, {
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>DELETE api/reation/{id}</code></p>
-<h4>Body Parameters</h4>
+<h4>Query Parameters</h4>
 <table>
 <thead>
 <tr>
 <th>Parameter</th>
-<th>Type</th>
 <th>Status</th>
 <th>Description</th>
 </tr>
@@ -625,7 +660,6 @@ fetch(url, {
 <tbody>
 <tr>
 <td>device_id</td>
-<td>string</td>
 <td>required</td>
 <td>The  id of device.</td>
 </tr>
@@ -1033,13 +1067,11 @@ fetch(url, {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X GET -G "http://34.87.16.238/api/videos?page=1&amp;type=2&amp;user_id=2&amp;search=abc" \
-    -H "Content-Type: application/json" \
-    -d '{"device_id":"1"}'
-</code></pre>
+<pre><code class="language-bash">curl -X GET -G "http://34.87.16.238/api/videos?device_id=1&amp;page=1&amp;type=2&amp;user_id=2&amp;search=abc" </code></pre>
 <pre><code class="language-javascript">const url = new URL("http://34.87.16.238/api/videos");
 
     let params = {
+            "device_id": "1",
             "page": "1",
             "type": "2",
             "user_id": "2",
@@ -1048,18 +1080,13 @@ fetch(url, {
     Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
 
 let headers = {
-    "Content-Type": "application/json",
     "Accept": "application/json",
-}
-
-let body = {
-    "device_id": "1"
+    "Content-Type": "application/json",
 }
 
 fetch(url, {
     method: "GET",
     headers: headers,
-    body: body
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
@@ -1275,25 +1302,6 @@ fetch(url, {
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/videos</code></p>
-<h4>Body Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>device_id</td>
-<td>string</td>
-<td>required</td>
-<td>The  id of device.</td>
-</tr>
-</tbody>
-</table>
 <h4>Query Parameters</h4>
 <table>
 <thead>
@@ -1304,6 +1312,11 @@ fetch(url, {
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>device_id</td>
+<td>required</td>
+<td>The  id of device.</td>
+</tr>
 <tr>
 <td>page</td>
 <td>optional</td>
@@ -1332,25 +1345,22 @@ fetch(url, {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X GET -G "http://34.87.16.238/api/video/1" \
-    -H "Content-Type: application/json" \
-    -d '{"device_id":"1"}'
-</code></pre>
+<pre><code class="language-bash">curl -X GET -G "http://34.87.16.238/api/video/1?device_id=1" </code></pre>
 <pre><code class="language-javascript">const url = new URL("http://34.87.16.238/api/video/1");
 
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-}
+    let params = {
+            "device_id": "1",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
 
-let body = {
-    "device_id": "1"
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
 fetch(url, {
     method: "GET",
     headers: headers,
-    body: body
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
@@ -1416,12 +1426,11 @@ fetch(url, {
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/video/{id}</code></p>
-<h4>Body Parameters</h4>
+<h4>Query Parameters</h4>
 <table>
 <thead>
 <tr>
 <th>Parameter</th>
-<th>Type</th>
 <th>Status</th>
 <th>Description</th>
 </tr>
@@ -1429,7 +1438,6 @@ fetch(url, {
 <tbody>
 <tr>
 <td>device_id</td>
-<td>string</td>
 <td>required</td>
 <td>The  id of device.</td>
 </tr>

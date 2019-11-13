@@ -137,7 +137,7 @@ class VideoController extends Controller
     /**
      * @group Videos
      * API for get list videos
-     * @bodyParam device_id string required The  id of device. Example: 1
+     * @queryParam device_id required The  id of device. Example: 1
      * @queryParam page int option this field use to filter what page client want to get ( default 10 video for 1 page). Example: 1
      * @queryParam type int option this field use to filter type of video. Example: 2
      * @queryParam user_id int option this field use to filter list video upload by an user. Example: 2
@@ -286,7 +286,7 @@ class VideoController extends Controller
     /**
      * @group Videos
      * API for get video detail.
-     * @bodyParam device_id string required The  id of device. Example: 1
+     * @queryParam device_id required The  id of device. Example: 1
      * @response {
      * "status": true,
      * "video": {
