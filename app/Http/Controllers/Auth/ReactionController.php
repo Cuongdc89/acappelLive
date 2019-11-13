@@ -44,8 +44,19 @@ class ReactionController extends Controller
             return response()->json($data, 200);
         }
 
+        if (!Request::has('device_id')) {
+            $data['status'] = false;
+            $data['errors'] = array(
+                'code' => -100,
+                'msg'  => 'device_id of action is required'
+            );
+
+            return response()->json($data, 200);
+        }
+
         $input = $request::all();
 
+        $device_id = $input['device_id'];
         $type = $input['type'];
         if (!in_array($type, Reaction::TYPE)) {
             $data['status'] = false;
@@ -97,7 +108,7 @@ class ReactionController extends Controller
             return response()->json($data, 200);
         }
 
-        $auId = $this->getAnonymousUserId();
+        $auId = $this->getAnonymousUserId($device_id);
 
         $reaction = Reaction::where('video_id', $id)->where('type', $input['type'])
             ->where('user_id', $auId)->where('auth_type', Reaction::ANONYMOUS_USER)->first();
@@ -130,19 +141,33 @@ class ReactionController extends Controller
     /**
      * @group Reaction
      * API for destroy a reaction.
+     * @bodyParam device_id string required The  id of device. Example: 1
      * @response {
      * "status": true
      * }
      */
 
-    public function destroyReaction($id)
+    public function destroyReaction(Request $request,$id)
     {
+        if (!Request::has('device_id')) {
+            $data['status'] = false;
+            $data['errors'] = array(
+                'code' => -100,
+                'msg'  => 'device_id of action is required'
+            );
+
+            return response()->json($data, 200);
+        }
+
+        $input = $request::all();
+        $device_id = $input['device_id'];
+
         $authType = Reaction::ANONYMOUS_USER;
         if (Auth::user()) {
             $authType = Reaction::AUTH_USER;
             $userId = Auth::user()['id'];
         } else {
-            $userId = $this->getAnonymousUserId();
+            $userId = $this->getAnonymousUserId($device_id);
         }
 
         Reaction::where('id', $id)->where('user_id', $userId)->where('auth_type', $authType)->delete();
@@ -155,6 +180,7 @@ class ReactionController extends Controller
     /**
      * @group Reaction
      * API for get list reaction of a video
+     * @bodyParam device_id string required The  id of device. Example: 1
      * @response {
      * "status": true,
      * "reactions" : [
@@ -186,8 +212,21 @@ class ReactionController extends Controller
      * ]
      * }
      */
-    public function getListReaction($id)
+    public function getListReaction(Request $request, $id)
     {
+        if (!Request::has('device_id')) {
+            $data['status'] = false;
+            $data['errors'] = array(
+                'code' => -100,
+                'msg'  => 'device_id of action is required'
+            );
+
+            return response()->json($data, 200);
+        }
+
+        $input = $request::all();
+        $device_id = $input['device_id'];
+
         $video = Video::find($id)->first();
 
         if (!$video) {
@@ -201,14 +240,14 @@ class ReactionController extends Controller
         }
 
         $data['status'] = true;
-        $data['reactions'] = $this->getListReactionCount($id);
+        $data['reactions'] = $this->getListReactionCount($id, $device_id);
 
         return response()->json($data, 200);
     }
 
-    private function getAnonymousUserId()
+    private function getAnonymousUserId($device_id)
     {
-        $agent  = $_SERVER['HTTP_USER_AGENT'];
+        $agent  = $device_id;
         $ip     = $_SERVER['REMOTE_ADDR'];
         $hashId = md5($agent . $ip);
 
@@ -221,21 +260,20 @@ class ReactionController extends Controller
         }
 
         return $au->id;
-
     }
 
     /**
      * @param $videoId
      * @return array
      */
-    private function getListReactionCount($videoId)
+    private function getListReactionCount($videoId, $device_id)
     {
         $authType = Reaction::ANONYMOUS_USER;
         if (Auth::user()) {
             $authType = Reaction::AUTH_USER;
             $userId = Auth::user()['id'];
         } else {
-            $userId = $this->getAnonymousUserId();
+            $userId = $this->getAnonymousUserId($device_id);
         }
 
         $countReed  = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_REED)->count();

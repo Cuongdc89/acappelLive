@@ -137,6 +137,7 @@ class VideoController extends Controller
     /**
      * @group Videos
      * API for get list videos
+     * @bodyParam device_id string required The  id of device. Example: 1
      * @queryParam page int option this field use to filter what page client want to get ( default 10 video for 1 page). Example: 1
      * @queryParam type int option this field use to filter type of video. Example: 2
      * @queryParam user_id int option this field use to filter list video upload by an user. Example: 2
@@ -215,7 +216,18 @@ class VideoController extends Controller
      */
     public function getListVideos(Request $request)
     {
+        if (!Request::has('device_id')) {
+            $data['status'] = false;
+            $data['errors'] = array(
+                'code' => -100,
+                'msg'  => 'device_id of action is required'
+            );
+
+            return response()->json($data, 200);
+        }
+
         $input = $request::all();
+        $device_id = $input['device_id'];
         $query = Video::where('id', '<>', 0);
         
         if (isset($input['user_id']) && $input['user_id'] > 0) {
@@ -252,7 +264,7 @@ class VideoController extends Controller
 
         foreach ($videos as $video) {
             $video->user = User::where('id', $video->user_id)->get()->first();
-            $video->reactions = $this->getListReactionCount($video->id);
+            $video->reactions = $this->getListReactionCount($video->id, $device_id);
             $data['videos'][] = $video;
         }
 
@@ -274,6 +286,7 @@ class VideoController extends Controller
     /**
      * @group Videos
      * API for get video detail.
+     * @bodyParam device_id string required The  id of device. Example: 1
      * @response {
      * "status": true,
      * "video": {
@@ -306,12 +319,25 @@ class VideoController extends Controller
      * }
      * }
      */
-    public function getVideoInfo($id)
+    public function getVideoInfo(Request $request, $id)
     {
+        if (!Request::has('device_id')) {
+            $data['status'] = false;
+            $data['errors'] = array(
+                'code' => -100,
+                'msg'  => 'device_id of action is required'
+            );
+
+            return response()->json($data, 200);
+        }
+
+        $input = $request::all();
+        $device_id = $input['device_id'];
+
         $video = Video::where('id', $id)->first();
         if ($video) {
             $video->user = User::find($video->user_id)->first();
-            $video->reactions = $this->getListReactionCount($video->id);
+            $video->reactions = $this->getListReactionCount($video->id, $device_id);
         }
 
         $data["status"] = true;
@@ -329,14 +355,14 @@ class VideoController extends Controller
      * @param $videoId
      * @return array
      */
-    private function getListReactionCount($videoId)
+    private function getListReactionCount($videoId, $device_id)
     {
         $authType = Reaction::ANONYMOUS_USER;
         if (Auth::user()) {
             $authType = Reaction::AUTH_USER;
             $userId = Auth::user()['id'];
         } else {
-            $userId = $this->getAnonymousUserId();
+            $userId = $this->getAnonymousUserId($device_id);
         }
 
         $countReed  = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_REED)->count();
@@ -408,9 +434,9 @@ class VideoController extends Controller
     /**
      * @return mixed
      */
-    private function getAnonymousUserId()
+    private function getAnonymousUserId($device_id)
     {
-        $agent  = $_SERVER['HTTP_USER_AGENT'];
+        $agent  = $device_id;
         $ip     = $_SERVER['REMOTE_ADDR'];
         $hashId = md5($agent . $ip);
 

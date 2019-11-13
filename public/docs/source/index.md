@@ -477,20 +477,28 @@ Parameter | Type | Status | Description
 > Example request:
 
 ```bash
-curl -X GET -G "http://34.87.16.238/api/video/1/reations" 
+curl -X GET -G "http://34.87.16.238/api/video/1/reations" \
+    -H "Content-Type: application/json" \
+    -d '{"device_id":"1"}'
+
 ```
 
 ```javascript
 const url = new URL("http://34.87.16.238/api/video/1/reations");
 
 let headers = {
-    "Accept": "application/json",
     "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "device_id": "1"
 }
 
 fetch(url, {
     method: "GET",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -501,62 +509,22 @@ fetch(url, {
 
 ```json
 {
-    "status": true,
-    "reactions": [
-        {
-            "type": "1",
-            "count": "4",
-            "user_reaction": {
-                "status": false,
-                "reaction_id": -1
-            }
-        },
-        {
-            "type": "2",
-            "count": "4",
-            "user_reaction": {
-                "status": true,
-                "reaction_id": 1
-            }
-        },
-        {
-            "type": "3",
-            "count": "20",
-            "user_reaction": {
-                "status": true,
-                "reaction_id": 3
-            }
-        },
-        {
-            "type": "4",
-            "count": "10",
-            "user_reaction": {
-                "status": true,
-                "reaction_id": 5
-            }
-        },
-        {
-            "type": "5",
-            "count": "100",
-            "user_reaction": {
-                "status": true,
-                "reaction_id": 7
-            }
-        }
-    ]
-}
-```
-> Example response (500):
-
-```json
-{
-    "message": "Server Error"
+    "status": false,
+    "errors": {
+        "code": -100,
+        "msg": "device_id of action is required"
+    }
 }
 ```
 
 ### HTTP Request
 `GET api/video/{id}/reations`
 
+#### Body Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    device_id | string |  required  | The  id of device.
 
 <!-- END_e28b9d76507ebad5dd4d972475e1fc56 -->
 
@@ -566,20 +534,28 @@ fetch(url, {
 > Example request:
 
 ```bash
-curl -X DELETE "http://34.87.16.238/api/reation/1" 
+curl -X DELETE "http://34.87.16.238/api/reation/1" \
+    -H "Content-Type: application/json" \
+    -d '{"device_id":"1"}'
+
 ```
 
 ```javascript
 const url = new URL("http://34.87.16.238/api/reation/1");
 
 let headers = {
-    "Accept": "application/json",
     "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "device_id": "1"
 }
 
 fetch(url, {
     method: "DELETE",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -597,6 +573,11 @@ fetch(url, {
 ### HTTP Request
 `DELETE api/reation/{id}`
 
+#### Body Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    device_id | string |  required  | The  id of device.
 
 <!-- END_b46af183f877acfaf4352aa6b9461427 -->
 
@@ -985,7 +966,10 @@ Parameter | Type | Status | Description
 > Example request:
 
 ```bash
-curl -X GET -G "http://34.87.16.238/api/videos?page=1&type=2&user_id=2&search=abc" 
+curl -X GET -G "http://34.87.16.238/api/videos?page=1&type=2&user_id=2&search=abc" \
+    -H "Content-Type: application/json" \
+    -d '{"device_id":"1"}'
+
 ```
 
 ```javascript
@@ -1000,13 +984,18 @@ const url = new URL("http://34.87.16.238/api/videos");
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
 let headers = {
-    "Accept": "application/json",
     "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "device_id": "1"
 }
 
 fetch(url, {
     method: "GET",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -1017,16 +1006,10 @@ fetch(url, {
 
 ```json
 {
-    "status": true,
-    "meta_data": {
-        "total": 0,
-        "paging": {
-            "current_page": 1,
-            "last_page": 0,
-            "per_page": 10,
-            "from": 0,
-            "to": 0
-        }
+    "status": false,
+    "errors": {
+        "code": -100,
+        "msg": "device_id of action is required"
     }
 }
 ```
@@ -1034,6 +1017,11 @@ fetch(url, {
 ### HTTP Request
 `GET api/videos`
 
+#### Body Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    device_id | string |  required  | The  id of device.
 #### Query Parameters
 
 Parameter | Status | Description
@@ -1051,20 +1039,28 @@ Parameter | Status | Description
 > Example request:
 
 ```bash
-curl -X GET -G "http://34.87.16.238/api/video/1" 
+curl -X GET -G "http://34.87.16.238/api/video/1" \
+    -H "Content-Type: application/json" \
+    -d '{"device_id":"1"}'
+
 ```
 
 ```javascript
 const url = new URL("http://34.87.16.238/api/video/1");
 
 let headers = {
-    "Accept": "application/json",
     "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "device_id": "1"
 }
 
 fetch(url, {
     method: "GET",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -1075,68 +1071,22 @@ fetch(url, {
 
 ```json
 {
-    "status": true,
-    "video": {
-        "id": 1,
-        "user_id": 2,
-        "title": "do.cao.cuong1@alliedtechbase.com",
-        "name": null,
-        "type": 1,
-        "view_count": 100,
-        "thumbnail_url": null,
-        "video_url": "http:\/\/127.0.0.1:8000\/uploads\/1572854724_download (7).jpeg",
-        "deleted_at": null,
-        "created_at": "2019-11-04 08:05:24",
-        "updated_at": "2019-11-04 08:05:24",
-        "user": {
-            "id": 1,
-            "name": "Cuongdc",
-            "email": "do.cao.cuong@alliedtechbase.com",
-            "created_at": "2019-10-23 04:01:24",
-            "updated_at": "2019-10-23 04:01:24",
-            "profile_picture_url": null
-        },
-        "reactions": [
-            {
-                "type": 1,
-                "count": 1,
-                "reaction_status": true
-            },
-            {
-                "type": 2,
-                "count": 1,
-                "reaction_status": true
-            },
-            {
-                "type": 3,
-                "count": 0,
-                "reaction_status": false
-            },
-            {
-                "type": 4,
-                "count": 0,
-                "reaction_status": false
-            },
-            {
-                "type": 5,
-                "count": 0,
-                "reaction_status": false
-            }
-        ]
+    "status": false,
+    "errors": {
+        "code": -100,
+        "msg": "device_id of action is required"
     }
-}
-```
-> Example response (500):
-
-```json
-{
-    "message": "Server Error"
 }
 ```
 
 ### HTTP Request
 `GET api/video/{id}`
 
+#### Body Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    device_id | string |  required  | The  id of device.
 
 <!-- END_28a4b4bf1d94d0f56e1c50ed3d82ae2d -->
 
