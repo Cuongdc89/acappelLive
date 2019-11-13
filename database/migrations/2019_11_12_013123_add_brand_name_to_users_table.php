@@ -14,7 +14,7 @@ class AddBrandNameToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('activity_area ')->after('email')->nullable();
+            $table->string('activity_area')->after('email')->nullable();
             $table->string('brand_name')->after('email')->nullable();
         });
     }
