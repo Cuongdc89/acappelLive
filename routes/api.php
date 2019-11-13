@@ -29,10 +29,12 @@ Route::post('register', 'Auth\RegisterController@register');
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('logout', 'Auth\LoginController@logout');
     Route::get('users', 'Auth\UserController@getUserInfo');
+    Route::post('users/pass/change', 'Auth\ResetPasswordController@changePassword');
     Route::post('users', 'Auth\UserController@updateUserInfo');
     Route::post('video', 'Auth\VideoController@create');
     Route::post('video/{id}/comment', 'Auth\CommentController@createComment');
 });
+
 
 Route::get('videos', 'Auth\VideoController@getListVideos');
 Route::get('video/{id}', 'Auth\VideoController@getVideoInfo');

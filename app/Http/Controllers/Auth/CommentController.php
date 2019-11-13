@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Request;
  */
 class CommentController extends Controller
 {
-    const DEFAULT_PAGE_SIZE = 10;
     /**
      * @group Comments
      * API for get list comments of a video
@@ -104,6 +103,7 @@ class CommentController extends Controller
 
         $offsetFrom     = (($currentPage - 1) * static::DEFAULT_PAGE_SIZE);
         $offsetTo       = ($lastPage > $currentPage) ? $currentPage * static::DEFAULT_PAGE_SIZE : $total;
+        $query->orderBy('created_at', static::ORDER_BY_DESC);
         $query->offset($offsetFrom);
         $query->limit(static::DEFAULT_PAGE_SIZE);
 
@@ -140,7 +140,15 @@ class CommentController extends Controller
      * "comment_text": "this is a comment too",
      * "updated_at": "2019-11-04 08:45:17",
      * "created_at": "2019-11-04 08:45:17",
-     * "id": 2
+     * "id": 2,
+     * "user": {
+     * "id": 1,
+     * "name": "Cuongdc",
+     * "email": "do.cao.cuong@alliedtechbase.com",
+     * "created_at": "2019-10-23 04:01:24",
+     * "updated_at": "2019-10-23 04:01:24",
+     * "profile_picture_url": null
+     * }
      * }
      * }
      */
@@ -157,7 +165,7 @@ class CommentController extends Controller
             );
         }
 
-        $video = Video::find($id)->first();
+        $video = Video::where('id', $id)->first();
 
         if (!$video) {
             $data["status"] = false;
@@ -177,8 +185,9 @@ class CommentController extends Controller
 
         $comment->save();
 
-        $data["status"] = true;
+        $comment->user   = User::where('id', $comment->user_id)->get()->first();
         $data['comment'] = $comment;
+        $data["status"]  = true;
 
         return response()->json($data, 200);
     }

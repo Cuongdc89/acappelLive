@@ -20,5 +20,8 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
  */
 class Controller extends BaseController
 {
+    const DEFAULT_PAGE_SIZE = 10;
+    const ORDER_BY_ASC  = 'ASC';
+    const ORDER_BY_DESC = 'DESC';
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }

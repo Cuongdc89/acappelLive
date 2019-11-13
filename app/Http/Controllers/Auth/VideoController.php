@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Request;
 class VideoController extends Controller
 {
 
-    const DEFAULT_PAGE_SIZE = 10;
     /**
      * @group Videos
      * API for user upload video
@@ -233,14 +232,14 @@ class VideoController extends Controller
 
         $offsetFrom     = (($currentPage - 1) * static::DEFAULT_PAGE_SIZE);
         $offsetTo       = ($lastPage > $currentPage) ? $currentPage * static::DEFAULT_PAGE_SIZE : $totalVideos;
+
+        $query->orderBy('created_at', static::ORDER_BY_DESC);
         $query->offset($offsetFrom);
         $query->limit(static::DEFAULT_PAGE_SIZE);
 
         $videos =  $query->get();
 
-
         $data["status"] = true;
-
 
         foreach ($videos as $video) {
             $video->user = User::where('id', $video->user_id)->get()->first();
@@ -300,7 +299,7 @@ class VideoController extends Controller
      */
     public function getVideoInfo($id)
     {
-        $video = Video::find($id)->first();
+        $video = Video::where('id', $id)->first();
         if ($video) {
             $video->user = User::find($video->user_id)->first();
             $video->reactions = $this->getListReactionCount($video->id);
@@ -331,11 +330,12 @@ class VideoController extends Controller
             $userId = $this->getAnonymousUserId();
         }
 
-        $countReed = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_REED)->count();
-        $countHar = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_HARMONIZED)->count();
-        $countEx = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_EXPRESSIVE)->count();
-        $countRH = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_RHYTHM)->count();
-        $countCA = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_CARE)->count();
+        $countReed  = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_REED)->count();
+        $countHar   = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_HARMONIZED)->count();
+        $countEx    = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_EXPRESSIVE)->count();
+        $countRH    = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_RHYTHM)->count();
+        $countCA    = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_CARE)->count();
+        $countShare = Reaction::where('video_id', $videoId)->where('type', Reaction::TYPE_SHARE)->count();
 
         return $data = array(
             [
@@ -362,6 +362,11 @@ class VideoController extends Controller
                 "type"  => Reaction::TYPE_CARE,
                 "count" => $countCA,
                 "reaction_status" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_CARE, $authType),
+            ],
+            [
+                "type"  => Reaction::TYPE_SHARE,
+                "count" => $countShare,
+                "user_reaction" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_SHARE, $authType),
             ]
         );
     }
