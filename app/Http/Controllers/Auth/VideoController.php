@@ -243,9 +243,9 @@ class VideoController extends Controller
         $currentPage    = isset($input['page']) ? $input['page'] : 1;
         $lastPage       = ceil($totalVideos / static::DEFAULT_PAGE_SIZE);
 
-        if ($currentPage > $lastPage) {
-            $currentPage = $lastPage;
-        }
+//        if ($currentPage > $lastPage) {
+//            $currentPage = $lastPage;
+//        }
 
         if ($currentPage <= 0 ) {
             $currentPage = 1;
@@ -271,7 +271,7 @@ class VideoController extends Controller
         $data['meta_data'] = [
             'total'         => $totalVideos,
             'paging'        => [
-                'current_page'  => $currentPage,
+                'current_page'  => (int) $currentPage,
                 'last_page'     => $lastPage,
                 'per_page'      => static::DEFAULT_PAGE_SIZE,
                 'from'          => $offsetFrom,
@@ -336,7 +336,7 @@ class VideoController extends Controller
 
         $video = Video::where('id', $id)->first();
         if ($video) {
-            $video->user = User::find($video->user_id)->first();
+            $video->user = User::where('id', $video->user_id)->first();
             $video->reactions = $this->getListReactionCount($video->id, $device_id);
         }
 

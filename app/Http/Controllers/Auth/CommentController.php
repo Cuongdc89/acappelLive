@@ -93,9 +93,9 @@ class CommentController extends Controller
         $currentPage    = isset($input['page']) ? $input['page'] : 1;
         $lastPage       = ceil($total / static::DEFAULT_PAGE_SIZE);
 
-        if ($currentPage > $lastPage) {
-            $currentPage = $lastPage;
-        }
+//        if ($currentPage > $lastPage) {
+//            $currentPage = $lastPage;
+//        }
 
         if ($currentPage <= 0 ) {
             $currentPage = 1;
@@ -116,7 +116,7 @@ class CommentController extends Controller
         $data['meta_data'] = [
             'total'         => $total,
             'paging'        => [
-                'current_page'  => $currentPage,
+                'current_page'  => (int) $currentPage,
                 'last_page'     => $lastPage,
                 'per_page'      => static::DEFAULT_PAGE_SIZE,
                 'from'          => $offsetFrom,

@@ -33,7 +33,7 @@ class ViewController extends Controller
             return response()->json($data, 200);
         }
 
-        $video = Video::find($id)->first();
+        $video = Video::where('id', $id)->first();
         $video->view_count = $video->view_count + 1;
         $video->save();
 

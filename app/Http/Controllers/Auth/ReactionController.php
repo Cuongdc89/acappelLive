@@ -287,32 +287,32 @@ class ReactionController extends Controller
             [
                 "type"  => Reaction::TYPE_REED,
                 "count" => $countReed,
-                "user_reaction" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_REED, $authType),
+                "reaction_status" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_REED, $authType),
             ],
             [
                 "type"  => Reaction::TYPE_HARMONIZED,
                 "count" => $countHar,
-                "user_reaction" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_HARMONIZED, $authType),
+                "reaction_status" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_HARMONIZED, $authType),
             ],
             [
                 "type"  => Reaction::TYPE_EXPRESSIVE,
                 "count" => $countEx,
-                "user_reaction" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_EXPRESSIVE, $authType),
+                "reaction_status" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_EXPRESSIVE, $authType),
             ],
             [
                 "type"  => Reaction::TYPE_RHYTHM,
                 "count" => $countRH,
-                "user_reaction" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_RHYTHM, $authType),
+                "reaction_status" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_RHYTHM, $authType),
             ],
             [
                 "type"  => Reaction::TYPE_CARE,
                 "count" => $countCA,
-                "user_reaction" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_CARE, $authType),
+                "reaction_status" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_CARE, $authType),
             ],
             [
                 "type"  => Reaction::TYPE_SHARE,
                 "count" => $countShare,
-                "user_reaction" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_SHARE, $authType),
+                "reaction_status" => $this->getReactionStatus($videoId, $userId, Reaction::TYPE_SHARE, $authType),
             ]
         );
     }
