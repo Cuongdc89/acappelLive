@@ -19,7 +19,7 @@ class ReactionController extends Controller
      * API for create a reaction for a video
      * @bodyParam type int required The type of reaction. (must be in array [1,2,3,4, 5]. 1: REED, 2: HARMONIZED, 3: EXPRESSIVE, 4: RHYTHM, 5: CARE (消さないで！). Example: 1
      * @bodyParam device_id string required The  id of device. Example: 1
-     * @bodyParam user_id int option The user of reaction. Example: 1
+     * @bodyParam user_id int option The user of reaction if user already login please sent token on header. Example: 1
      * @response {
      * "status": true,
      * "reaction_id": 1
