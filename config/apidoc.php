@@ -233,7 +233,8 @@ return [
                 'api/logout',
                 'api/users',
                 'api/video/{id}/comment',
-                'api/video'
+                'api/video',
+                'api/users/pass/change'
             ],
 
             /*

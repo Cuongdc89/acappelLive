@@ -33,8 +33,8 @@ class ResetPasswordController extends Controller
 
 
     /**
-     * @group User Autentication
-     * API for get user change password
+     * @group Autentication
+     * API for change password
      * @title change password
      * @authenticated
      * @bodyParam new_password string required The password required min 8 char. Example: 23456789@a
