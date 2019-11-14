@@ -32,6 +32,7 @@ class LoginController extends Controller
 
     /**
      * @group Autentication
+     * @title API login
      * @bodyParam email email required The email which user has been register. Example: cuongdc@gmail.com
      * @bodyParam password string required The password required min 8 char. Example: 12345678@a
      * @response {
@@ -69,6 +70,7 @@ class LoginController extends Controller
 
     /**
      * @group Autentication
+     * @title API logout
      * @response {
      * "status": "true"
      * }

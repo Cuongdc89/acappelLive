@@ -43,6 +43,7 @@ class RegisterController extends Controller
 
     /**
      * @group Autentication
+     * @title API register new user
      * @bodyParam email email required This param must validate email format. Example: cuongdc@gmail.com
      * @bodyParam password string required The password must has min 8 chars. Example: 12345678@a
      * @bodyParam password_confirmation string required The password must has min 8 chars. Example: 12345678@a
