@@ -44,3 +44,5 @@ Route::post('video/{id}/reation', 'Auth\ReactionController@createReaction');
 Route::get('video/{id}/reations', 'Auth\ReactionController@getListReaction');
 Route::delete('reation/{id}', 'Auth\ReactionController@destroyReaction');
 Route::post('video/{id}/view', 'Auth\ViewController@updateVideoViewCount');
+Route::post('users/pass/forget', 'Auth\ForgotPasswordController@requestResetPassword');
+Route::post('users/pass/reset', 'Auth\ForgotPasswordController@resetPassword');
