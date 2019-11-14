@@ -25,8 +25,8 @@ class ForgotPasswordController extends Controller
      * @group Autentication
      * API for request reset password
      * @title request reset password
-     * @bodyParam device_id string required. Example: 23456789@a
-     * @bodyParam email string required. Example: 23456789@a
+     * @bodyParam device_id string required the id of device. Example: 23456789@a
+     * @bodyParam email string required the email user want to reset password. Example: 23456789@a
      * @response {
      * "status": "true"
      * }
@@ -90,8 +90,8 @@ class ForgotPasswordController extends Controller
      * @group Autentication
      * API for reset password
      * @title reset password
-     * @bodyParam device_id string required. Example: 23456789@a
-     * @bodyParam email string required. Example: 23456789@a
+     * @bodyParam device_id string required the id of device. Example: 23456789@a
+     * @bodyParam email string required the email user want to reset password. Example: 23456789@a
      * @bodyParam code string required The code was sent to email. Example: 23456789@a
      * @bodyParam new_password string required The password required min 8 char. Example: 23456789@a
      * @response {

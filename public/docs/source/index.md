@@ -134,6 +134,131 @@ Parameter | Type | Status | Description
 
 <!-- END_9ed4bf21f47b2cbe9f28def42fbb482c -->
 
+<!-- START_0f0695aa6ec81b36079e7fb4756ac738 -->
+## API for request reset password
+
+> Example request:
+
+```bash
+curl -X POST "http://34.87.16.238/api/users/pass/forget" \
+    -H "Authorization: Bearer {token}" \
+    -H "Content-Type: application/json" \
+    -d '{"device_id":"23456789@a","email":"23456789@a"}'
+
+```
+
+```javascript
+const url = new URL("http://34.87.16.238/api/users/pass/forget");
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "device_id": "23456789@a",
+    "email": "23456789@a"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "status": "true"
+}
+```
+
+### HTTP Request
+`POST api/users/pass/forget`
+
+#### Body Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    device_id | string |  required  | the id of device.
+    email | string |  required  | the email user want to reset password.
+
+<!-- END_0f0695aa6ec81b36079e7fb4756ac738 -->
+
+<!-- START_4c93cf6c8984f7ff7316b8211caecf7c -->
+## API for reset password
+
+> Example request:
+
+```bash
+curl -X POST "http://34.87.16.238/api/users/pass/reset" \
+    -H "Authorization: Bearer {token}" \
+    -H "Content-Type: application/json" \
+    -d '{"device_id":"23456789@a","email":"23456789@a","code":"23456789@a","new_password":"23456789@a"}'
+
+```
+
+```javascript
+const url = new URL("http://34.87.16.238/api/users/pass/reset");
+
+let headers = {
+    "Authorization": "Bearer {token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "device_id": "23456789@a",
+    "email": "23456789@a",
+    "code": "23456789@a",
+    "new_password": "23456789@a"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "status": "true",
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjVlOGMyOGM1ZTZ",
+    "user": {
+        "name": "Cuongdc123",
+        "email": "cuongdc@gmail.com",
+        "id": "1",
+        "profile_picture_url": "https:\/\/lh3.googleusercontent.com\/--jvQFiFavr0\/AAAAAAAAAAI\/AAAAAAAAAAA\/ACHi3rea71C01D1HxUXaqKQ7Djj9e8Li4Q.CMID\/s32-c\/photo.jpg"
+    }
+}
+```
+
+### HTTP Request
+`POST api/users/pass/reset`
+
+#### Body Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    device_id | string |  required  | the id of device.
+    email | string |  required  | the email user want to reset password.
+    code | string |  required  | The code was sent to email.
+    new_password | string |  required  | The password required min 8 char.
+
+<!-- END_4c93cf6c8984f7ff7316b8211caecf7c -->
+
 <!-- START_c3fa189a6c95ca36ad6ac4791a873d23 -->
 ## api/login
 > Example request:
@@ -284,6 +409,127 @@ Parameter | Type | Status | Description
     name | string |  required  | This param will be use to display on user info and comment of user.
 
 <!-- END_d7b7952e7fdddc07c978c9bdaf757acf -->
+
+<!-- START_0f0695aa6ec81b36079e7fb4756ac738 -->
+## API for request reset password
+
+> Example request:
+
+```bash
+curl -X POST "http://34.87.16.238/api/users/pass/forget" \
+    -H "Content-Type: application/json" \
+    -d '{"device_id":"23456789@a","email":"23456789@a"}'
+
+```
+
+```javascript
+const url = new URL("http://34.87.16.238/api/users/pass/forget");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "device_id": "23456789@a",
+    "email": "23456789@a"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "status": "true"
+}
+```
+
+### HTTP Request
+`POST api/users/pass/forget`
+
+#### Body Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    device_id | string |  required  | the id of device.
+    email | string |  required  | the email user want to reset password.
+
+<!-- END_0f0695aa6ec81b36079e7fb4756ac738 -->
+
+<!-- START_4c93cf6c8984f7ff7316b8211caecf7c -->
+## API for reset password
+
+> Example request:
+
+```bash
+curl -X POST "http://34.87.16.238/api/users/pass/reset" \
+    -H "Content-Type: application/json" \
+    -d '{"device_id":"23456789@a","email":"23456789@a","code":"23456789@a","new_password":"23456789@a"}'
+
+```
+
+```javascript
+const url = new URL("http://34.87.16.238/api/users/pass/reset");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "device_id": "23456789@a",
+    "email": "23456789@a",
+    "code": "23456789@a",
+    "new_password": "23456789@a"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "status": "true",
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjVlOGMyOGM1ZTZ",
+    "user": {
+        "name": "Cuongdc123",
+        "email": "cuongdc@gmail.com",
+        "id": "1",
+        "profile_picture_url": "https:\/\/lh3.googleusercontent.com\/--jvQFiFavr0\/AAAAAAAAAAI\/AAAAAAAAAAA\/ACHi3rea71C01D1HxUXaqKQ7Djj9e8Li4Q.CMID\/s32-c\/photo.jpg"
+    }
+}
+```
+
+### HTTP Request
+`POST api/users/pass/reset`
+
+#### Body Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    device_id | string |  required  | the id of device.
+    email | string |  required  | the email user want to reset password.
+    code | string |  required  | The code was sent to email.
+    new_password | string |  required  | The password required min 8 char.
+
+<!-- END_4c93cf6c8984f7ff7316b8211caecf7c -->
 
 #Comments
 

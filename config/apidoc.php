@@ -100,6 +100,8 @@ return [
                 'api/video/{id}/reation',
                 'api/video/{id}/view',
                 'api/reation/{id}',
+                'api/users/pass/forget',
+                'api/users/pass/reset'
             ],
 
             /*

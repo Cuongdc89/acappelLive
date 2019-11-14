@@ -325,6 +325,151 @@ fetch(url, {
 </tbody>
 </table>
 <!-- END_d7b7952e7fdddc07c978c9bdaf757acf -->
+<!-- START_0f0695aa6ec81b36079e7fb4756ac738 -->
+<h2>API for request reset password</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://34.87.16.238/api/users/pass/forget" \
+    -H "Content-Type: application/json" \
+    -d '{"device_id":"23456789@a","email":"23456789@a"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://34.87.16.238/api/users/pass/forget");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "device_id": "23456789@a",
+    "email": "23456789@a"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": "true"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/users/pass/forget</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>device_id</td>
+<td>string</td>
+<td>required</td>
+<td>the id of device.</td>
+</tr>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>required</td>
+<td>the email user want to reset password.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_0f0695aa6ec81b36079e7fb4756ac738 -->
+<!-- START_4c93cf6c8984f7ff7316b8211caecf7c -->
+<h2>API for reset password</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://34.87.16.238/api/users/pass/reset" \
+    -H "Content-Type: application/json" \
+    -d '{"device_id":"23456789@a","email":"23456789@a","code":"23456789@a","new_password":"23456789@a"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://34.87.16.238/api/users/pass/reset");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "device_id": "23456789@a",
+    "email": "23456789@a",
+    "code": "23456789@a",
+    "new_password": "23456789@a"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": "true",
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjVlOGMyOGM1ZTZ",
+    "user": {
+        "name": "Cuongdc123",
+        "email": "cuongdc@gmail.com",
+        "id": "1",
+        "profile_picture_url": "https:\/\/lh3.googleusercontent.com\/--jvQFiFavr0\/AAAAAAAAAAI\/AAAAAAAAAAA\/ACHi3rea71C01D1HxUXaqKQ7Djj9e8Li4Q.CMID\/s32-c\/photo.jpg"
+    }
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/users/pass/reset</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>device_id</td>
+<td>string</td>
+<td>required</td>
+<td>the id of device.</td>
+</tr>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>required</td>
+<td>the email user want to reset password.</td>
+</tr>
+<tr>
+<td>code</td>
+<td>string</td>
+<td>required</td>
+<td>The code was sent to email.</td>
+</tr>
+<tr>
+<td>new_password</td>
+<td>string</td>
+<td>required</td>
+<td>The password required min 8 char.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_4c93cf6c8984f7ff7316b8211caecf7c -->
 <h1>Comments</h1>
 <!-- START_12843026c1a22533a2513cb16ccd1cc4 -->
 <h2>API for create a comment for a video</h2>
