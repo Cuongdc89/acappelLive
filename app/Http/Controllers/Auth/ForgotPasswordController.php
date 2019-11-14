@@ -65,6 +65,7 @@ class ForgotPasswordController extends Controller
             return response()->json($data, 200);
 
         } catch (\Exception $e) {
+            //var_dump($e->getTraceAsString());die();
             $data['status'] = false;
             $data['errors'] = array(
                 'code' => -100,
@@ -81,8 +82,8 @@ class ForgotPasswordController extends Controller
         return Validator::make($data, [
             'device_id'     => 'required|string|max:255',
             'email'         => 'required|string|email|max:255',
-            'code'          => 'required|string|email|max:255',
-            'new_password'  => 'required|string|email|max:255',
+            'code'          => 'required|string|max:4',
+            'new_password'  => 'required|string|max:255',
         ]);
     }
 
@@ -96,7 +97,6 @@ class ForgotPasswordController extends Controller
      * @bodyParam new_password string required The password required min 8 char. Example: 23456789@a
      * @response {
      * "status": "true",
-     * "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjVlOGMyOGM1ZTZ",
      * "user" : {
      *  "name": "Cuongdc123",
      *  "email" : "cuongdc@gmail.com",
@@ -138,13 +138,10 @@ class ForgotPasswordController extends Controller
             $passwordReset->delete();
 
             $user->password = bcrypt($input['new_password']);
-            $user->token()->revoke();
-            $token = $user->createToken('newToken')->accessToken;
 
             $user->save();
 
             $data['status'] = true;
-            $data['token']  = $token;
             $data['user']   = $user;
 
             return response()->json($data, 200);
