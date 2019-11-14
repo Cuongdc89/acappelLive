@@ -15,7 +15,7 @@ class AddUpdatedAtToPasswordResetsTable extends Migration
     {
         Schema::table('password_resets', function (Blueprint $table) {
             $table->increments('id')->before('email');
-            $table->timestamp('updated_at')->after('created_at');
+            $table->timestamp('updated_at')->after('created_at')->nullable();;
         });
     }
 
