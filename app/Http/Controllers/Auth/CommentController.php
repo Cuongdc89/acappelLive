@@ -90,13 +90,14 @@ class CommentController extends Controller
         $query = Comment::where('video_id', $id);
         $total = $query->count();
 
+        $input = $request::all();
         $currentPage    = isset($input['page']) ? $input['page'] : 1;
         $lastPage       = ceil($total / static::DEFAULT_PAGE_SIZE);
 
 //        if ($currentPage > $lastPage) {
 //            $currentPage = $lastPage;
 //        }
-
+        
         if ($currentPage <= 0 ) {
             $currentPage = 1;
         }
