@@ -315,7 +315,11 @@ class VideoController extends Controller
      * {"type": 3, "count": 0, "reaction_status": false},
      * {"type": 4, "count": 0, "reaction_status": false},
      * {"type": 5, "count": 0, "reaction_status": false}
-     * ]
+     * ],
+     * "default_comment_text":[
+     *      "対バンしませんか？",
+     *      "一緒に練習しませんか？"
+     *  ]
      * }
      * }
      */
@@ -338,6 +342,7 @@ class VideoController extends Controller
         if ($video) {
             $video->user = User::where('id', $video->user_id)->first();
             $video->reactions = $this->getListReactionCount($video->id, $device_id);
+            $video->default_comment_text = Video::DEFAULT_COMENT_TEXT;
         }
 
         $data["status"] = true;

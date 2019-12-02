@@ -61,7 +61,7 @@ fetch(url, {
 
 ```json
 {
-    "message": "Unauthenticated."
+    "message": "{\"status\":false,\"is_expired_token\":true}"
 }
 ```
 
@@ -892,7 +892,7 @@ fetch(url, {
 
 ```json
 {
-    "message": "Unauthenticated."
+    "message": "{\"status\":false,\"is_expired_token\":true}"
 }
 ```
 
@@ -1205,6 +1205,10 @@ fetch(url, {
                 "count": 0,
                 "reaction_status": false
             }
+        ],
+        "default_comment_text": [
+            "対バンしませんか？",
+            "一緒に練習しませんか？"
         ]
     }
 }
