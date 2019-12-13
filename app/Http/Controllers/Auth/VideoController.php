@@ -319,7 +319,8 @@ class VideoController extends Controller
      * "default_comment_text":[
      *      "対バンしませんか？",
      *      "一緒に練習しませんか？"
-     *  ]
+     *  ],
+     * "button_default_text" : "❤️を押せば動画が時間を経過しても自動で削除されないよ、ぜひ押してね！"
      * }
      * }
      */
@@ -343,6 +344,7 @@ class VideoController extends Controller
             $video->user = User::where('id', $video->user_id)->first();
             $video->reactions = $this->getListReactionCount($video->id, $device_id);
             $video->default_comment_text = Video::DEFAULT_COMENT_TEXT;
+            $video->button_default_text  = Video::BUTTON_DEFAULT_TEXT;
         }
 
         $data["status"] = true;
