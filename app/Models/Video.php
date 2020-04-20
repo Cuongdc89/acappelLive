@@ -19,7 +19,8 @@ class Video extends BaseModel
         "一緒に練習しませんか？"
     ];
 
-    const BUTTON_DEFAULT_TEXT = "❤️を押せば動画が時間を経過しても自動で削除されないよ、ぜひ押してね！";
+    const BUTTON_DEFAULT_TEXT = "　♡を押して動画を「自動削除」から守ろう！
+※動画は一定期間経過後、自動的に削除されてしまいます　";
 
     protected $fillable = [
         'user_id',
